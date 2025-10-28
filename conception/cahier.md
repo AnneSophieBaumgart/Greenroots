@@ -6,7 +6,7 @@
 - **Qui ?** GreenRoots (fictif) est née de l’urgence de prendre des mesures concrètes pour préserver notre planète face à la déforestation et au changement climatique.
 - **Pour qui ?** Public éco-conscient, entreprises responsables, associations engagées, etc.
 - **Comment ?** En équipe : Armand, Zakaria, Anne-Sophie. Organisation en méthode agile pour la gestion de projet.
-- **Quand ?** En plusieurs sprints qui inclueront des tâches de : conception, code, déploiement, recettage, etc.
+- **Quand ?** En plusieurs sprints qui incluront des tâches de : conception, code, déploiement, recettage, etc.
 
 ## Présentation du Projet de Développement
 
@@ -96,5 +96,12 @@
 
 
 #### Rôles de chacun :
+
+- Product Owner (PO) : Armand
+- Lead developer front : Zakaria
+- Lead developer back : Anne-Sophie
+- Git master : Armand
+
+#### Organisation du travail
 
 Mise en place d'un kanban où chacun choisira les tâches qu'il souhaite faire tout en restant équilibré entre les membres de l'équipe.
