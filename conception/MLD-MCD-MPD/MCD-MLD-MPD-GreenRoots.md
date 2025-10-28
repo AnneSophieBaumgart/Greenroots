@@ -9,63 +9,93 @@ USER_HAS_TREE (id, #user_id, #tree_id)<br>
 ORDER (id, date, total_price, status, #user_id)<br>
 ORDER_HAS_TREE (id, quantity, #tree_id, #order_id)<br>
 TREE (id, name, description, image, price, stock, origin)<br>
-PLANT (id, date, quantity, #tree_id, #place_id) <br>
+PLACE_HAS_PLANT (id, date, quantity, #tree_id, #place_id) <br>
 PLACE (id, name)<br>
 
 # MPD (Modèle Physique de Données)
 
 ```sql
-CREATE TABLE "user" (
-    id SERIAL PRIMARY KEY,
-    last_name VARCHAR(255) NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(50)
+-- =============================
+-- Table : USER
+-- =============================
+CREATE TABLE "user" (                             -- Création de la table des utilisateurs
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    last_name VARCHAR(255) NOT NULL,              -- Nom de famille de l’utilisateur
+    first_name VARCHAR(255) NOT NULL,             -- Prénom de l’utilisateur
+    email VARCHAR(255) UNIQUE NOT NULL,           -- Email unique (sert aussi pour la connexion)
+    password VARCHAR(255) NOT NULL,               -- Mot de passe de l’utilisateur (haché)
+    role VARCHAR(50) DEFAULT 'client'             -- Rôle par défaut : "client"
+         CHECK (role IN ('client', 'admin'))      -- Vérifie que le rôle est bien "client" ou "admin"
 );
 
-CREATE TABLE user_has_tree (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES "user"(id) ON DELETE CASCADE,
-    tree_id INT REFERENCES tree(id) ON DELETE CASCADE
+-- =============================
+-- Table : PLACE
+-- =============================
+CREATE TABLE place (                              -- Création de la table des lieux de plantation
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    name VARCHAR(255) NOT NULL                    -- Nom du lieu (ex : Amazonie, Kenya, etc.)
 );
 
-CREATE TABLE place (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+-- =============================
+-- Table : TREE
+-- =============================
+CREATE TABLE tree (                               -- Création de la table des arbres
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    name VARCHAR(255) NOT NULL,                   -- Nom de l’arbre (ex : Chêne, Olivier, etc.)
+    description TEXT,                             -- Description de l’arbre
+    image VARCHAR(255),                           -- Lien vers une image de l’arbre
+    price DECIMAL(10,2) NOT NULL,                 -- Prix de l’arbre
+    stock INT NOT NULL,                           -- Quantité d’arbres disponibles
+    origin VARCHAR(100),                          -- Origine géographique (ex : France, Brésil)
+    place_id INT REFERENCES place(id)             -- Lieu associé à l’arbre (clé étrangère)
+             ON DELETE SET NULL                   -- Si le lieu est supprimé, la valeur devient NULL
 );
 
-CREATE TABLE tree (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    image VARCHAR(255),
-    price DECIMAL(10,2) NOT NULL,
-    stock INT NOT NULL,
-    origin VARCHAR(100),
-    place_id INT REFERENCES place(id) ON DELETE SET NULL
+-- =============================
+-- Table : PLACE_HAS_PLANT
+-- =============================
+CREATE TABLE place_has_plant (                    -- Table d’association entre arbres et lieux
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    date_plantation DATE NOT NULL,                -- Date de plantation de l’arbre
+    quantity INT DEFAULT 1 CHECK (quantity > 0),  -- Nombre d’arbres plantés (minimum 1)
+    tree_id INT NOT NULL REFERENCES tree(id)      -- Clé étrangère vers l’arbre concerné
+            ON DELETE CASCADE,                    -- Si l’arbre est supprimé → suppression automatique
+    place_id INT NOT NULL REFERENCES place(id)    -- Clé étrangère vers le lieu concerné
+            ON DELETE CASCADE                     -- Si le lieu est supprimé → suppression automatique
 );
 
-CREATE TABLE plant (
-    id SERIAL PRIMARY KEY,
-    date_plantation DATE NOT NULL,
-    quantity INT DEFAULT 1 CHECK (quantity > 0),
-    tree_id INT NOT NULL REFERENCES tree(id) ON DELETE CASCADE,
-    place_id INT NOT NULL REFERENCES place(id) ON DELETE CASCADE
+-- =============================
+-- Table : ORDER
+-- =============================
+CREATE TABLE "order" (                            -- Création de la table des commandes
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    total_price DECIMAL(10,2) NOT NULL,           -- Montant total de la commande
+    status VARCHAR(50) NOT NULL,                  -- Statut de la commande (ex : payée, en attente)
+    user_id INT REFERENCES "user"(id)             -- Lien vers l’utilisateur ayant passé la commande
+            ON DELETE CASCADE                     -- Si l’utilisateur est supprimé → suppression des commandes
 );
 
-CREATE TABLE "order" (
-    id SERIAL PRIMARY KEY, 
-    total_price DECIMAL(10,2) NOT NULL,
-    status VARCHAR(50) NOT NULL,
-    user_id INT REFERENCES "user"(id) ON DELETE CASCADE
+-- =============================
+-- Table : ORDER_HAS_TREE
+-- =============================
+CREATE TABLE order_has_tree (                     -- Table d’association entre commande et arbre
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    quantity INT NOT NULL,                        -- Quantité d’arbres achetés dans la commande
+    tree_id INT NOT NULL REFERENCES tree(id)      -- L’arbre concerné (clé étrangère)
+            ON DELETE CASCADE,                    -- Si l’arbre est supprimé → suppression automatique
+    order_id INT NOT NULL REFERENCES "order"(id)  -- Commande concernée (clé étrangère)
+            ON DELETE CASCADE                     -- Si la commande est supprimée → suppression automatique
 );
 
-CREATE TABLE order_has_tree (
-    id SERIAL PRIMARY KEY,
-    quantity INT NOT NULL,
-    tree_id INT REFERENCES tree(id) ON DELETE CASCADE NOT NULL,
-    order_id INT REFERENCES "order"(id) ON DELETE CASCADE NOT NULL
+-- =============================
+-- Table : USER_HAS_TREE
+-- =============================
+CREATE TABLE user_has_tree (                      -- Table de suivi : quels arbres un utilisateur a achetés
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+    user_id INT REFERENCES "user"(id)             -- L’utilisateur concerné (clé étrangère)
+            ON DELETE CASCADE,                    -- Si l’utilisateur est supprimé → suppression automatique
+    tree_id INT REFERENCES tree(id)               -- L’arbre concerné (clé étrangère)
+            ON DELETE CASCADE                     -- Si l’arbre est supprimé → suppression automatique
 );
 
 
