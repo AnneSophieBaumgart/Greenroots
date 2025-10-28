@@ -8,10 +8,11 @@ USER (id, last_name, first_name, e-mail, password, role)<br>
 USER_HAS_TREE (id, #user_id, #tree_id)<br>
 ORDER (id, date, total_price, status, #user_id)<br>
 ORDER_HAS_TREE (id, quantity, #tree_id, #order_id)<br>
-TREE (id, name, description, image, price, stock, origin, #place_id)<br>
+TREE (id, name, description, image, price, stock, origin)<br>
+PLANT (id, date, quantity, #tree_id, #place_id) <br>
 PLACE (id, name)<br>
 
-# MPD
+# MPD (Modèle Physique de Données)
 
 ```sql
 CREATE TABLE "user" (
@@ -43,6 +44,14 @@ CREATE TABLE tree (
     stock INT NOT NULL,
     origin VARCHAR(100),
     place_id INT REFERENCES place(id) ON DELETE SET NULL
+);
+
+CREATE TABLE plant (
+    id SERIAL PRIMARY KEY,
+    date_plantation DATE NOT NULL,
+    quantity INT DEFAULT 1 CHECK (quantity > 0),
+    tree_id INT NOT NULL REFERENCES tree(id) ON DELETE CASCADE,
+    place_id INT NOT NULL REFERENCES place(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "order" (
