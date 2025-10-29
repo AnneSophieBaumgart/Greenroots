@@ -12,14 +12,14 @@ TREE (id, name, description, image, price, stock, origin)<br>
 PLACE_HAS_PLANT (id, quantity, #tree_id, #place_id) <br>
 PLACE (id, name)<br>
 
-# MPD (Modèle Physique de Données)
+# MPD (Modèle Physique de Données) !!!!!!
 
 ```sql
 -- =============================
 -- Table : USER
 -- =============================
 CREATE TABLE "user" (                             -- Création de la table des utilisateurs
-    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté (GENERATED ALWAYS AS IDENTITY) 
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté (GENERATED ALWAYS AS IDENTITY)
     last_name TEXT NOT NULL,                      -- Nom de famille de l’utilisateur
     first_name TEXT NOT NULL,                     -- Prénom de l’utilisateur
     email TEXT UNIQUE NOT NULL,                   -- Email unique (sert aussi pour la connexion)
