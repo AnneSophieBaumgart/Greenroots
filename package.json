@@ -1,0 +1,29 @@
+{
+  "name": "dwwm-greenroots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Dundee/dwwm-greenroots.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Dundee/dwwm-greenroots/issues"
+  },
+  "homepage": "https://github.com/O-clock-Dundee/dwwm-greenroots#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  }
+}
