@@ -5,11 +5,11 @@
 # MLD (Modèle Logique de Données)
 
 USER (id, last_name, first_name, e-mail, password, role)<br>
-USER_HAS_TREE (id, #user_id, #tree_id)<br>
+USER_HAS_TREE (#user_id, #tree_id)<br>
 ORDER (id, date, total_price, status, #user_id)<br>
 ORDER_HAS_TREE (id, quantity, #tree_id, #order_id)<br>
 TREE (id, name, description, image, price, stock, origin)<br>
-PLACE_HAS_PLANT (id, date, quantity, #tree_id, #place_id) <br>
+PLACE_HAS_PLANT (id, quantity, #tree_id, #place_id) <br>
 PLACE (id, name)<br>
 
 # MPD (Modèle Physique de Données)
@@ -19,12 +19,12 @@ PLACE (id, name)<br>
 -- Table : USER
 -- =============================
 CREATE TABLE "user" (                             -- Création de la table des utilisateurs
-    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
-    last_name VARCHAR(255) NOT NULL,              -- Nom de famille de l’utilisateur
-    first_name VARCHAR(255) NOT NULL,             -- Prénom de l’utilisateur
-    email VARCHAR(255) UNIQUE NOT NULL,           -- Email unique (sert aussi pour la connexion)
-    password VARCHAR(255) NOT NULL,               -- Mot de passe de l’utilisateur (haché)
-    role VARCHAR(50) DEFAULT 'client'             -- Rôle par défaut : "client"
+    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté (GENERATED ALWAYS AS IDENTITY) 
+    last_name TEXT NOT NULL,                      -- Nom de famille de l’utilisateur
+    first_name TEXT NOT NULL,                     -- Prénom de l’utilisateur
+    email TEXT UNIQUE NOT NULL,                   -- Email unique (sert aussi pour la connexion)
+    password TEXT NOT NULL,                       -- Mot de passe de l’utilisateur (haché)
+    role TEXT DEFAULT 'client'                    -- Rôle par défaut : "client"
          CHECK (role IN ('client', 'admin'))      -- Vérifie que le rôle est bien "client" ou "admin"
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE "user" (                             -- Création de la table des u
 -- =============================
 CREATE TABLE place (                              -- Création de la table des lieux de plantation
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
-    name VARCHAR(255) NOT NULL                    -- Nom du lieu (ex : Amazonie, Kenya, etc.)
+    name TEXT NOT NULL                            -- Nom du lieu (ex : Amazonie, Kenya, etc.)
 );
 
 -- =============================
@@ -41,12 +41,12 @@ CREATE TABLE place (                              -- Création de la table des l
 -- =============================
 CREATE TABLE tree (                               -- Création de la table des arbres
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
-    name VARCHAR(255) NOT NULL,                   -- Nom de l’arbre (ex : Chêne, Olivier, etc.)
+    name TEXT NOT NULL,                           -- Nom de l’arbre (ex : Chêne, Olivier, etc.)
     description TEXT,                             -- Description de l’arbre
-    image VARCHAR(255),                           -- Lien vers une image de l’arbre
+    image TEXT,                                   -- Lien vers une image de l’arbre
     price DECIMAL(10,2) NOT NULL,                 -- Prix de l’arbre
     stock INT NOT NULL,                           -- Quantité d’arbres disponibles
-    origin VARCHAR(100),                          -- Origine géographique (ex : France, Brésil)
+    origin TEXT,                                  -- Origine géographique (ex : France, Brésil)
     place_id INT REFERENCES place(id)             -- Lieu associé à l’arbre (clé étrangère)
              ON DELETE SET NULL                   -- Si le lieu est supprimé, la valeur devient NULL
 );
@@ -56,7 +56,6 @@ CREATE TABLE tree (                               -- Création de la table des a
 -- =============================
 CREATE TABLE place_has_plant (                    -- Table d’association entre arbres et lieux
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
-    date_plantation DATE NOT NULL,                -- Date de plantation de l’arbre
     quantity INT DEFAULT 1 CHECK (quantity > 0),  -- Nombre d’arbres plantés (minimum 1)
     tree_id INT NOT NULL REFERENCES tree(id)      -- Clé étrangère vers l’arbre concerné
             ON DELETE CASCADE,                    -- Si l’arbre est supprimé → suppression automatique
@@ -70,7 +69,7 @@ CREATE TABLE place_has_plant (                    -- Table d’association entre
 CREATE TABLE "order" (                            -- Création de la table des commandes
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
     total_price DECIMAL(10,2) NOT NULL,           -- Montant total de la commande
-    status VARCHAR(50) NOT NULL,                  -- Statut de la commande (ex : payée, en attente)
+    status TEXT NOT NULL,                         -- Statut de la commande (ex : payée, en attente)
     user_id INT REFERENCES "user"(id)             -- Lien vers l’utilisateur ayant passé la commande
             ON DELETE CASCADE                     -- Si l’utilisateur est supprimé → suppression des commandes
 );
@@ -90,8 +89,7 @@ CREATE TABLE order_has_tree (                     -- Table d’association entre
 -- =============================
 -- Table : USER_HAS_TREE
 -- =============================
-CREATE TABLE user_has_tree (                      -- Table de suivi : quels arbres un utilisateur a achetés
-    id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
+CREATE TABLE user_has_tree (                      -- Table de suivi : quels arbres un utilisateur a acheté
     user_id INT REFERENCES "user"(id)             -- L’utilisateur concerné (clé étrangère)
             ON DELETE CASCADE,                    -- Si l’utilisateur est supprimé → suppression automatique
     tree_id INT REFERENCES tree(id)               -- L’arbre concerné (clé étrangère)
