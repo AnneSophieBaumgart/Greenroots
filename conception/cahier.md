@@ -26,12 +26,12 @@
 - Ajout de fonctionnalités avancées pour les partenaires : via un rôle spécifique, pouvoir proposer en tant qu’externe un lot d’arbres à planter, etc.
 - Intégration d'une API pour le paiement sécurisé, comme [Stripe](https://stripe.com/fr).
 
-### Contraintes Techniques (notamment liées au TP)
+### Contraintes Techniques
 
-- **Technologies** : application monolithique : 
-                              - express + ejs pour les views,
-                              - postgreSQL pour l'API,
-                              - sequelize comme ORM.
+- **Technologies** : application monolithique : <br>
+                              - express + ejs pour les views,<br>
+                              - postgreSQL,<br>
+                              - sequelize comme ORM.<br>
 - **Sécurité :** authentification sécurisée, protection contre les failles courantes (XSS, injections SQL, etc.).
 - **Déploiement :** rédaction a minima d'une procédure de déploiement (CI/CD en bonus).
 - **Responsive :** application développée en mobile first et responsive.
@@ -39,7 +39,7 @@
 - **RGPD et mentions légales :** mettre en place les mentions légales liées au règlement général sur la protection des données (RGPD).
 - **Versionning :** utilisation de Git et GitHub.
 - **SEO** : appliquer les bonnes pratiques visant à maximiser le référencement du projet.
-- **Navigateurs compatibles :** tous.
+- **Navigateurs compatibles :** Chrome, Firefox, Brave.
 - **Bonus** :
     - conteneurisation (Docker) pour l'environnement de développement voire pour le déploiement,
     - éco-conception (optimisation des images, minification des fichiers, etc.).
