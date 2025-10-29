@@ -12,7 +12,7 @@ TREE (id, name, description, image, price, stock, origin)<br>
 PLACE_HAS_PLANT (id, quantity, #tree_id, #place_id) <br>
 PLACE (id, name)<br>
 
-# MPD (Modèle Physique de Données) !!!!!!
+# MPD (Modèle Physique de Données)
 
 ```sql
 -- =============================
