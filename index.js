@@ -1,12 +1,17 @@
 import express from 'express';
 import 'dotenv/config';
+import homepageRouter from './app/Routes/homepage.route.js';
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+app.set('view engine', 'ejs');
+app.set('views', './app/Views');
+
+app.use(express.static('./app/public'));
+
+app.use('/', homepageRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
