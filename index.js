@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import homepageRouter from './app/Routes/homepage.route.js';
+import treesRouter from './app/Routes/treespage.route.js';
 
 const app = express();
 
@@ -12,7 +13,9 @@ app.set('views', './app/Views');
 app.use(express.static('./app/public'));
 
 app.use('/', homepageRouter);
+app.use('/trees', treesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
