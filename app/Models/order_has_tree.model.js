@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from './sequelize.client.js';
 
-class OrderHasTree  extends Model {}
+class OrderHasTree extends Model {}
 
-OrderHasTree .init({
+OrderHasTree.init({
     // Quantité d'arbres achetés dans la commande
     quantity: {
         type: DataTypes.INTEGER,
