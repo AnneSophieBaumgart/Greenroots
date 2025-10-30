@@ -17,6 +17,14 @@
 
 }
 
+.navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+}
+
 .logo{
     cursor: pointer;
     width: 5rem;
@@ -29,6 +37,7 @@
     font-size: 2.5rem;
     cursor: pointer;
     display: none;
+    right: 5%;
 }
 
 .nav_links li {
@@ -64,3 +73,25 @@
     background-color: #78978c;
 }
 
+@media screen and (max-width: 768px) {
+    .icon{
+        display: inline-flex;
+        margin-right:0;
+    }
+    .nav_links{
+        position: absolute;
+        right: 0px;
+        height: 100vh;
+        top: 0;
+        background-color: #3A5A40;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transform: translateX(100%);
+        padding-top: 5rem;
+    }
+    .connexion{
+        display: none;
+    }
+}
