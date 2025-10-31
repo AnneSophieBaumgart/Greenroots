@@ -1,9 +1,13 @@
 import express from 'express';
-import { treeController } from '../Controllers/tree-controller.js';
+import  TreeController from '../Controllers/tree-controller.js';
 
 const router = express.Router();
 
-// Route GET pour récupérer tous les arbres
-router.get('/', treeController.getAll);
+// Routes CRUD
+router.get('/', TreeController.getAll);
+router.get('/:id', TreeController.getById);
+router.post('/', TreeController.create);
+router.put('/:id', TreeController.update);
+router.delete('/:id', TreeController.delete);
 
 export default router;
