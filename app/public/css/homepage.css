@@ -7,7 +7,7 @@
 }
 
 /* Texte - moitié gauche */
-#about > div {
+#about div {
     flex: 1; /* Prend la moitié de l'espace disponible */
     min-width: 300px; /* Largeur minimale pour le responsive */
     display: flex;
