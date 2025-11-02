@@ -7,6 +7,7 @@ class CoreController {
     constructor(model, schema) {
         this.model = model; // Stocke le modèle (table)
         this.schema = schema; // Stocke le schéma de validation
+
     } 
 
     /**
@@ -19,6 +20,16 @@ class CoreController {
         try {
 
             const items = await this.model.findAll();// Récupère tous les enregistrements
+            //TODO res.render(this.model.name.toLowerCase(), {items})
+            // Si la requête vient d’un navigateur (HTML), on affiche une vue
+            //if (req.accepts('html')) {
+            //    return res.render(
+            //        `pages/${this.model.name.toLowerCase()}s`, // Exemple : pages/trees.ejs
+            //        { title: `Liste des ${this.model.name}s`, items }
+            //    );
+            //}
+            //  Sinon, on renvoie du JSON (ex: requête AJAX)
+            //res.status(StatusCodes.OK).json(items);
 
             res.status(StatusCodes.OK).json(items); // Retourne la liste en JSON (code 200)
 
@@ -36,15 +47,15 @@ class CoreController {
      */
     getById = async (req, res) => {
         try {
-
+            
             const { id } = req.params;// Récupère l'ID depuis l'URL
-
+            
             const item = await this.model.findByPk(id); // Cherche l'élément par clé primaire
 
             if (!item) { // Si l'élément n'existe pas
                 return res.status(StatusCodes.NOT_FOUND).json({ error: "Élément non trouvé." });
             }
-
+            //TODO res.render(this.model.name.toLowerCase()/detail, {item})
             res.status(StatusCodes.OK).json(item); // Retourne l'élément trouvé (code 200)
 
         } catch (error) {

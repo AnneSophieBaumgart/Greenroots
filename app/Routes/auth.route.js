@@ -1,0 +1,27 @@
+import express from 'express';
+import { register, login, getCurrentUserInfo } from '../Controllers/auth-controller.js';
+import { authenticateToken } from '../Middlewares/auth-middleware.js';
+
+const router = express.Router();
+
+// Routes publiques 
+
+//register() => crée un nouvel utilisateur
+router.get('/register', (req, res) => res.render('register'));
+router.post('/register', register);
+
+// login() => connecte et pose un cookie JWT
+router.get('/login', (req, res) => res.render('login'));
+router.post('/login', login);
+
+// getCurrentUserInfo() => affiche le profil ou dashboard
+// authenticateToken => protège les pages privées
+router.get('/dashboard', authenticateToken, getCurrentUserInfo);
+
+// Déconnexion
+router.get('/logout', (req, res) => {
+  res.clearCookie('token', { path: '/' }); // supprime le cookie JWT globalement
+  res.redirect('/login');
+})
+
+export default router;

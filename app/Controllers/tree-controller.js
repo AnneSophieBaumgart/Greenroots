@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { Tree } from '../Models/index.js';
-import CoreController from './core.controller.js';
+import CoreController from './core-controller.js';
 
 // Schéma Joi pour valider les données d'un arbre
 const treeSchema = Joi.object({
@@ -14,7 +14,7 @@ const treeSchema = Joi.object({
 
 class TreeController extends CoreController {
     constructor() {
-        super(Tree, treeSchema); // On passe le modèle et le schéma
+        super(Tree, treeSchema, 'tree'); // On passe le modèle et le schéma
     }
 }
 

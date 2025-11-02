@@ -1,6 +1,6 @@
 import express from 'express';
 import  TreeController from '../Controllers/tree-controller.js';
-import { validateTree } from '../Middlewares/tree.middleware.js';
+import { validateTree } from '../Middlewares/tree-middleware.js';
 
 const router = express.Router();
 
