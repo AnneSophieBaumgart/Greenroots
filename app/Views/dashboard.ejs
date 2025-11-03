@@ -1,25 +1,34 @@
 <%- include('partials/header') %>
 
+  <h1>Bienvenue </h1>
   <section id="profil">
     <div class="user">
-      <h1>Bienvenue </h1>
-      <h2>
+      <h3>Nom : </h3>
+      <p>
+        <%= user.last_name %>
+      </p>
+      <h3>Prénom : </h3>
+      <p>
         <%= user.first_name %>
-          <%= user.last_name %> 👋
-      </h2>
-      <p>Email :</p>
+      </p>
+      <h3>Email :</h3>
       <p>
         <%= user.email %>
       </p>
     </div>
     <div class="trees">
-      <p>Liste des arbres :</p>
+      <h2>Liste des arbres :</h2>
       <% user.UserHasTrees.forEach(userTree=> { %>
-        <p>Arbre : <%= userTree.Tree.name %>
+        <h3>Arbre :</h3>
+        <p>
+          <%= userTree.Tree.name %>
         </p>
-        <p>Quantité : <%= userTree.quantity %>
+        <h3>Quantité :</h3>
+        <p>
+          <%= userTree.quantity %>
         </p>
-        <p>Lieu(x) :
+        <h3>Lieu(x) : </h3>
+        <p>
           <% userTree.Tree.Places.forEach((place, index)=> { %>
             <%= place.name %>
               <%= index < userTree.Tree.Places.length - 1 ? ', ' : '' %>
