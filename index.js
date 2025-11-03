@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import homepageRouter from './app/Routes/homepage.route.js';
 import treeRouter from './app/Routes/tree.route.js';
-import treesRouter from './app/Routes/treespage.route.js';
 import contactRouter from './app/Routes/contact.route.js';
 import authRouter from './app/Routes/auth.route.js';
 
@@ -26,10 +25,9 @@ app.use(express.static('./app/public'));
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);
-app.use('/api/trees', treeRouter);
 app.use('/contact', contactRouter);
 
-app.use('/trees', treesRouter);
+app.use('/trees', treeRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
