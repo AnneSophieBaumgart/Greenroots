@@ -19,13 +19,23 @@ PlaceHasPlant.init(
     tree_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: 'tree', // Nom de la table référencée
+            key: 'id',
+        },
+    onDelete: 'CASCADE', // Si l’arbre est supprimé → suppression automatique
     },
 
     // Clé étrangère vers Place
     place_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
+        references: {
+            model: 'place', // Nom de la table référencée
+            key: 'id',
+        },
+    onDelete: 'CASCADE', // Si le lieu est supprimé → suppression automatique
+},
 },
 {
     sequelize,                  // Connexion à la base
