@@ -1,10 +1,35 @@
 <%- include('partials/header') %>
 
-<h1>Bienvenue <%= user.first_name %> <%= user.last_name %> 👋</h1>
-<p>Email : <%= user.email %></p>
-<p>Rôle : <%= user.role %></p>
+  <section id="profil">
+    <div class="user">
+      <h1>Bienvenue </h1>
+      <h1>
+        <%= user.first_name %>
+          <%= user.last_name %> 👋
+      </h1>
+      <p>Email :</p>
+      <p>
+        <%= user.email %>
+      </p>
+    </div>
+    <div class="trees">
+      <p>Liste des arbres :</p>
+      <% user.UserHasTrees.forEach(userTree=> { %>
+        <p>Arbre : <%= userTree.Tree.name %>
+        </p>
+        <p>Quantité : <%= userTree.quantity %>
+        </p>
+        <p>Lieu(x) :
+          <% userTree.Tree.Places.forEach((place, index)=> { %>
+            <%= place.name %>
+              <%= index < userTree.Tree.Places.length - 1 ? ', ' : '' %>
+                <% }) %>
+        </p>
+        <% }) %>
+    </div>
 
-<a href="/logout">Se déconnecter</a>
+    <a href="/logout">Se déconnecter</a>
 
+  </section>
 
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>
