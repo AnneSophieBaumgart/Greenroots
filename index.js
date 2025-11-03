@@ -4,7 +4,6 @@ import 'dotenv/config';
 import homepageRouter from './app/Routes/homepage.route.js';
 import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
-import loginRouter from './app/Routes/login.route.js';
 import authRouter from './app/Routes/auth.route.js';
 
 const app = express();
