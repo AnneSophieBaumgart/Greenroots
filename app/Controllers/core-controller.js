@@ -3,10 +3,15 @@ import { StatusCodes } from 'http-status-codes';
 // Classe de base pour les contrôleurs génériques
 class CoreController {
 
-    // Constructeur : reçoit un modèle Sequelize et un schéma Joi
-    constructor(model, schema) {
+    /**
+    * @param {Model} model - modèle Sequelize
+    * @param {Joi.Schema} schema - schéma de validation Joi
+    * @param {string} [viewFolderName] - nom du dossier des vues (ex: "trees", "users")
+    */
+    constructor(model, schema, viewFolderName) {
         this.model = model; // Stocke le modèle (table)
         this.schema = schema; // Stocke le schéma de validation
+        this.viewFolder = viewFolderName || model.name.toLowerCase() + 's'; // Nom du dossier des vues
 
     } 
 
@@ -24,7 +29,7 @@ class CoreController {
             //Si la requête vient d’un navigateur (HTML), on affiche une vue
             if (req.accepts('html')) {
                 return res.status(StatusCodes.OK).render(
-                   `pages/${this.model.name.toLowerCase()}s`, // exemple : views/pages/trees/list.ejs
+                   `${this.viewFolder}/list`, // => Views/trees/list.ejs
                     { title: `Liste des ${this.model.name}s`, items }
                 );
             }

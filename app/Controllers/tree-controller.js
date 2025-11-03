@@ -14,7 +14,7 @@ const treeSchema = Joi.object({
 
 class TreeController extends CoreController {
     constructor() {
-        super(Tree, treeSchema, 'tree'); // On passe le modèle et le schéma
+        super(Tree, treeSchema, 'trees'); // On passe le modèle et le schéma
     }
 }
 
