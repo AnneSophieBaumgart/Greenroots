@@ -71,6 +71,7 @@ main {
     font-size: 1.5rem;
     margin: 1rem 0;
     font-weight: bold;
+    align-items: start;
 }
 
 /* Description de chaque produit*/
