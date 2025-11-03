@@ -13,4 +13,5 @@ html {
 
 body {
   background-color: var(--color-cream);
+  min-height: 100vh;
 }
