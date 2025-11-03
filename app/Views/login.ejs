@@ -16,6 +16,9 @@
                 <p class="no_account">Pas de compte ? <a class="inscrivez_vous" href="/register">Inscrivez-vous</a></p>
             </div>
         </form>
+        <% if (error) { %>
+            <p style="color:red;"><%= error %></p>
+        <% } %>
     </div>
 </section>
 
