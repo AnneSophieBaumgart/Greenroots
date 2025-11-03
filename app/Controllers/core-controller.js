@@ -18,8 +18,8 @@ class CoreController {
      */
     getAll = async (req, res) => {
         try {
-
-            const items = await this.model.findAll();// Récupère tous les enregistrements
+            // Récupère tous les enregistrements
+            const items = await this.model.findAll();
 
             //Si la requête vient d’un navigateur (HTML), on affiche une vue
             if (req.accepts('html')) {
