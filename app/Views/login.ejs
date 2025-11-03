@@ -1,0 +1,22 @@
+<%-include('partials/header')%>
+
+<section class="login_page">
+    <div class="login_container">
+        <h1 class="connexion_h1">Connexion</h1>
+        <form class="connexion_form" action="/login" method="POST">
+            <label for="email">Email :</label><br>
+            <input class="input" placeholder="test123@mail.com" type="email" id="email" name="email" required> <br>
+
+            <label for="password">Mot de passe :</label><br>
+            <input class="input" placeholder="********" type="password" id="password" name="password" required> <br>
+
+            <button type="submit" class="connexion_button">Se connecter</button>
+
+            <div class="register_link">
+                <p class="no_account">Pas de compte ? <a href="/register">Inscrivez-vous</a></p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%-include('partials/footer')%>
