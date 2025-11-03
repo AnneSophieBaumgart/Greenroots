@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     gap: 5rem;
     align-items: center;
+    min-height: 85vh; /* Force la section à prendre au moins 85% de la hauteur de l'écran */
 }
 
 /* Texte - moitié gauche */
@@ -33,7 +34,6 @@
 #about h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    margin-top: 2rem;
     margin-left: 10%;
 }
 
