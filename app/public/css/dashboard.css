@@ -1,0 +1,49 @@
+#profil {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  gap: 2rem;
+}
+
+#profil h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 3rem;
+}
+
+#profil p {
+  font-size: 1.8rem;
+}
+
+#profil a {
+    border: 1rem;
+    color: var(--color-darkgreen);
+    font-weight: bold;
+    font-size: x-large;
+}
+
+#profil a:hover {
+    transform: translateY(-5px);
+    background-color: #d3dfbb;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+    #profil {
+        grid-template-columns: 1fr; /* écran mobile : 1 colonne */
+    }
+    #profil h1 {
+      font-size: 1.5rem;
+    }
+    #profil p {
+      font-size: 0.8rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+    #profil {
+        grid-template-columns: repeat(2, 1fr); /* tablettes / petits laptops : 2 colonnes */     
+    }
+}
