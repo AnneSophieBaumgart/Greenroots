@@ -6,6 +6,9 @@ import { StatusCodes } from 'http-status-codes';
 
 export function validateTree(req, res, next){
 
+    // Ignore les requêtes GET
+    if (req.method === 'GET') return next();
+
     const rules ={
         name: Joi.string().min(2).required(), // Nom requis (2 caractères minumum)
         description: Joi.string().allow(''), // Description / optionnelle
