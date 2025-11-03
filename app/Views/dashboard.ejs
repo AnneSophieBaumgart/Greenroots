@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+
+<h1>Bienvenue <%= user.first_name %> <%= user.last_name %> 👋</h1>
+<p>Email : <%= user.email %></p>
+<p>Rôle : <%= user.role %></p>
+
+<a href="/logout">Se déconnecter</a>
+
+
+<%- include('partials/footer') %>
