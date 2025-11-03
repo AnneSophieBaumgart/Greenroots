@@ -76,23 +76,19 @@
 
 #### User Stories
 
-### Utilisateur :
-
-- En tant qu’utilisateur, je veux pouvoir m’inscrire pour créer un compte.
-- En tant qu’utilisateur, je veux pouvoir me connecter à mon compte.
-- En tant qu’utilisateur, je veux pouvoir consulter la liste des arbres disponibles à l’achat.
-- En tant qu’utilisateur, je veux pouvoir voir les détails d’un arbre spécifique.
-- En tant qu’utilisateur, je veux pouvoir acheter un arbre.
-- En tant qu’utilisateur, je veux pouvoir consulter l’historique de mes commandes.
-- En tant qu’utilisateur, je veux pouvoir voir et modifier mon panier.
-- En tant qu’utilisateur, je veux pouvoir me déconnecter de mon compte.
-
-
-### Admin :
-
-- En tant qu’admin, je veux pouvoir ajouter de nouveaux arbres à la plateforme.
-- En tant qu’admin, je veux pouvoir modifier les informations d’un arbre existant.
-- En tant qu’admin, je veux pouvoir supprimer un arbre de la plateforme.
+| Rôle | En tant que | Je veux pouvoir |
+|---|---| ---|
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir m’inscrire pour créer un compte. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir me connecter à mon compte. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir consulter la liste des arbres disponibles à l’achat. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir voir les détails d’un arbre spécifique. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir acheter un arbre. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir consulter l’historique de mes commandes. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir voir et modifier mon panier. |
+| Utilisateur | En tant qu’utilisateur, | je veux pouvoir me déconnecter de mon compte. |
+| Admin | En tant qu’admin, | je veux pouvoir ajouter de nouveaux arbres à la plateforme. |
+| Admin | En tant qu’admin, | je veux pouvoir modifier les informations d’un arbre existant. |
+| Admin | En tant qu’admin, | je veux pouvoir supprimer un arbre de la plateforme. |
 
 
 #### Rôles de chacun :
