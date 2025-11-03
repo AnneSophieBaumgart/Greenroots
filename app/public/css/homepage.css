@@ -1,0 +1,62 @@
+
+#about {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* Texte - moitié gauche */
+#about div {
+    flex: 1; /* Prend la moitié de l'espace disponible */
+    min-width: 300px; /* Largeur minimale pour le responsive */
+    display: flex;
+    flex-direction: column; /* Organise h1, p, a en colonne */
+}
+
+/* Image - moitié droite */
+#about img {
+    border-radius: 1rem;
+    flex: 1; /* Prend la moitié de l'espace disponible */
+    width: 80%;
+    max-width: 650px;
+    margin: 2rem 5rem 2rem;
+    border: 1px solid black;
+}
+
+@media screen and (max-width: 1280px) {
+    #about img {
+        display: none;
+    }
+}
+
+#about h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-left: 10%;
+}
+
+#about h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-left: 15%;
+}
+
+#about p {
+    line-height: 1.5rem;
+    margin: 3rem 0;
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: justify;
+    margin: 8%;
+}
+
+#about a {
+    border: 1rem;
+    color: var(--color-darkgreen);
+    font-weight: bold;
+    font-size: x-large;
+    margin-left: 45%;
+}
