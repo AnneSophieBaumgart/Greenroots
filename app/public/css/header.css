@@ -61,7 +61,9 @@
 
 .connexion {
     background-color: #E5E3DC;
+    color: #3A5A40;
     border: none;
+    text-decoration: none;
     padding: 10px 20px;
     border-radius: 15px;
     cursor: pointer;
