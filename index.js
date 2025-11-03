@@ -6,7 +6,6 @@ import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
 import authRouter from './app/Routes/auth.route.js';
 
-
 const app = express();
 
 const PORT = process.env.PORT || 3000;
