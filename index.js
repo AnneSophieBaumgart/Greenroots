@@ -4,6 +4,7 @@ import 'dotenv/config';
 import homepageRouter from './app/Routes/homepage.route.js';
 import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
+import authRouter from './app/Routes/auth.route.js';
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.set('views', './app/Views');
 app.use(express.static('./app/public'));
 
 app.use('/', homepageRouter);
+app.use('/', authRouter);
 app.use('/api/trees', treeRouter);
 app.use('/contact', contactRouter);
 
