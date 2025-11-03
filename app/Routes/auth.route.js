@@ -7,11 +7,11 @@ const router = express.Router();
 // Routes publiques 
 
 //register() => crée un nouvel utilisateur
-router.get('/register', (req, res) => res.render('register'));
+router.get('/register', (req, res) => res.render('register', { error: null }));
 router.post('/register', register);
 
 // login() => connecte et pose un cookie JWT
-router.get('/login', (req, res) => res.render('login'));
+router.get('/login', (req, res) => res.render('login', { error: null }));
 router.post('/login', login);
 
 // getCurrentUserInfo() => affiche le profil ou dashboard
