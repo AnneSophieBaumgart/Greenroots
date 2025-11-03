@@ -20,23 +20,30 @@ class CoreController {
         try {
 
             const items = await this.model.findAll();// Récupère tous les enregistrements
-            //TODO res.render(this.model.name.toLowerCase(), {items})
-            // Si la requête vient d’un navigateur (HTML), on affiche une vue
-            //if (req.accepts('html')) {
-            //    return res.render(
-            //        `pages/${this.model.name.toLowerCase()}s`, // Exemple : pages/trees.ejs
-            //        { title: `Liste des ${this.model.name}s`, items }
-            //    );
-            //}
-            //  Sinon, on renvoie du JSON (ex: requête AJAX)
-            //res.status(StatusCodes.OK).json(items);
 
+            //Si la requête vient d’un navigateur (HTML), on affiche une vue
+            if (req.accepts('html')) {
+                return res.status(StatusCodes.OK).render(
+                   `pages/${this.model.name.toLowerCase()}s`, // exemple : views/pages/trees/list.ejs
+                    { title: `Liste des ${this.model.name}s`, items }
+                );
+            }
+
+            // Sinon (requête API / AJAX), on renvoie du JSON
             res.status(StatusCodes.OK).json(items); // Retourne la liste en JSON (code 200)
 
         } catch (error) {
-            console.error(error);
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur serveur." });
+        console.error(error);
+
+        // En cas d’erreur, on gère les deux cas : HTML ou JSON
+        if (req.accepts('html')) {
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .render('error', { message: "Erreur serveur." });
         }
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur serveur." });
+    }
     };
 
     /**
