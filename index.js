@@ -5,6 +5,9 @@ import homepageRouter from './app/Routes/homepage.route.js';
 import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
 import authRouter from './app/Routes/auth.route.js';
+import './app/Models/index.js';
+
+
 
 const app = express();
 
