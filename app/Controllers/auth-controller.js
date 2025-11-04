@@ -126,7 +126,7 @@ export async function getCurrentUserInfo(req, res) {
               include: [
                 {
                   model: Place,
-                  through: { attributes: [] }
+                  through: { attributes: ['quantity'] }
                 }
               ]
             }
