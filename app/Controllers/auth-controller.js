@@ -108,15 +108,15 @@ export async function getCurrentUserInfo(req, res) {
 
     // Vérifie qu’un utilisateur est bien authentifié
     if (!req.userId) {
-      return res.redirect('/login');
+      return res.status(StatusCodes.UNAUTHORIZED).render('login', { error: 'Veuillez vous connecter pour accéder à votre profil.' });
     }
 
     // Récupère l’ID utilisateur depuis le token (c’est le middleware auth-middleware.js qui l’a ajouté à req)
-    const userId = req.userId; // injecté par le middleware d’auth
+    const userId = req.userId;
 
-    // Cherche l’utilisateur par son ID sans inclure le mot de passe
+    // Cherche l’utilisateur et ses relations (arbres + lieux)
     const user = await User.findByPk(userId, {
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password'] }, // Ne pas renvoyer le mot de passe
       include: [
         {
           model: UserHasTree,
@@ -126,7 +126,7 @@ export async function getCurrentUserInfo(req, res) {
               include: [
                 {
                   model: Place,
-                  through: { attributes: [] }
+                  through: { attributes: ['quantity'] }
                 }
               ]
             }
@@ -139,8 +139,12 @@ export async function getCurrentUserInfo(req, res) {
       return res.status(StatusCodes.NOT_FOUND).render('login', { error: 'Utilisateur non trouvé' });
     }
 
-    // Renvoie la page dashboard.ejs avec les infos utilisateur
-    res.render('dashboard', { user });
+    // Renvoie la vue EJS avec les données utilisateur
+    res.status(StatusCodes.OK).render('dashboard', {
+      title: 'Mon profil',
+      user
+    });
+
 
   } catch (error) {
     console.error(error);

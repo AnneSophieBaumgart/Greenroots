@@ -6,6 +6,7 @@ import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
 import authRouter from './app/Routes/auth.route.js';
 import './app/Models/index.js';
+import { decodeUserFromToken } from './app/Middlewares/decodeUserFromToken-middleware.js';
 
 
 
@@ -22,8 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', './app/Views');
-
 app.use(express.static('./app/public'));
+
+// middleware global : lit le token, sans bloquer personne
+app.use(decodeUserFromToken);
+
 
 app.use('/', homepageRouter);
 app.use('/', authRouter);

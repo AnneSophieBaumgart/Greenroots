@@ -3,6 +3,7 @@
   <h1 class="dashboard">Bienvenue </h1>
   <section id="profil">
     <div class="user">
+      <h2>Profil</h2>
       <h3>Nom : </h3>
       <p>
         <%= user.last_name %>
@@ -23,21 +24,20 @@
         <p>
           <%= userTree.Tree.name %>
         </p>
-        <h3>Quantité :</h3>
-        <p>
-          <%= userTree.quantity %>
-        </p>
-        <h3>Lieu(x) : </h3>
-        <p>
-          <% userTree.Tree.Places.forEach((place, index)=> { %>
+        <% userTree.Tree.Places.forEach(place=> { %>
+          <h3>Quantité :</h3>
+          <p>
+            <%= place.PlaceHasPlant.quantity %>
+          </p>
+          <h3>Lieu(x) : </h3>
+          <p>
             <%= place.name %>
-              <%= index < userTree.Tree.Places.length - 1 ? ', ' : '' %>
-                <% }) %>
-        </p>
-        <% }) %>
+          </p>
+          <% }) %>
+            <% }) %>
     </div>
+    <div class="profil_logout"><a href="/logout">Se déconnecter</a></div>
 
-    <a href="/logout">Se déconnecter</a>
 
   </section>
 
