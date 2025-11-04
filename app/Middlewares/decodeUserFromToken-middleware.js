@@ -18,7 +18,7 @@ export function decodeUserFromToken(req, res, next) {
             res.locals.userRole = decoded.role;
             res.locals.userEmail = decoded.email; // optionnel, utile pour le header
         } catch (err) {
-            // Si token invalide ou expiré → on réinitialise
+            // Si token invalide ou expiré => on réinitialise
             res.locals.userId = null;
             res.locals.userRole = null;
             res.locals.userEmail = null;
