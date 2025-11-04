@@ -31,18 +31,6 @@
         <li><a href="/">Home</a></li>
         <li><a href="/trees">Nos Arbres</a></li>
         <li><a href="/contact">Contact</a></li>
-        <% if (userId) { %>
-          <li><a href="/dashboard">Mon profil</a></li>
-
-        <% if (userRole === 'admin') { %>
-          <li><a href="/admin">Admin</a></li>
-        <% } %>
-
-        <li><a href="/logout">Déconnexion</a></li>
-        <% } else { %>
-          <li><a href="/login">Connexion</a></li>
-          <li><a href="/register">Inscription</a></li>
-        <% } %>
       </ul>
       <a href="/login" class="connexion">connexion</a>
     </nav>
