@@ -16,12 +16,14 @@
             <h2><span>Nom</span> : <%= item.name %></h2>
             <p><span>Origine </span> : <%= item.origin %></p>
             <p><span>Prix</span> : <%= item.price %> €</p>
-
             <p class="desc"><span>Description</span> : <%= item.description %></p>
-            
             <p><span>Disponibilité</span> : <%=item.stock%> Arbres</p>
-            <a class="ajouter_au_panier_button" href="/panier">Ajouter au panier</a>    
-            
+
+            <form action="/panier/add" method="POST" class="add-to-cart-form">
+                <input type="hidden" name="tree_id" value="<%= item.id %>">
+                <input type="number" name="quantity" value="1" min="1" max="<%=item.stock%>" class="quantity-input">
+                <button type="submit" class="ajouter_au_panier_button">Ajouter au panier</button>
+            </form>
             
           </div>
         </article>
