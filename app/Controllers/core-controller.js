@@ -54,7 +54,7 @@ class CoreController {
     getById = async (req, res) => {
         try {
             
-            // Récupèrer l'ID depuis l'URL (ex: /trees/3 → id = 3)
+            // Récupèrer l'ID depuis l'URL (exemple: /trees/3 => id = 3)
             const { id } = req.params;
             
             // Chercher l'élément dans la base via sa clé primaire
@@ -205,20 +205,25 @@ class CoreController {
             // Récupère l'ID depuis l'URL
             const { id } = req.params;
 
-            // Supprime directement en base sans charger l'objet
-            const deletedCount = await this.model.destroy({ where: { id } });
+            // Recherche l'élément à supprimer
+            const item = await this.model.findByPk(id);
 
-            // Si aucun élément trouvé => code erreur 404
-            if (deletedCount === 0) {
-            return res.status(404).json({ error: "Élément non trouvé." });
+            // Si l'élément n'existe pas → page d’erreur
+            if (!item) {
+                return res.status(StatusCodes.NOT_FOUND).render('error', { message: "Élément non trouvé." });
             }
 
-            // Sinon répond au client JS (fetch) avec un message de succès
-            res.status(200).json({ message: `${this.model.name} supprimé avec succès.` });
+            // Supprime l'élément de la base
+            await item.destroy();
+
+            // Redirige vers la liste après suppression
+            res.redirect(`/${this.viewFolder}`);
 
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: "Erreur lors de la suppression." });
+
+            // En cas d’erreur serveur → affiche la page error.ejs
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur lors de la suppression." });
         }
         };
 }

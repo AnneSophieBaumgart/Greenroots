@@ -14,6 +14,6 @@ router.get('/:id/edit', authenticateToken, isAdmin, TreeController.update);
 router.post('/:id/edit', authenticateToken, isAdmin, TreeController.update);
 
 // Suppression via DELETE (JS fetch)
-router.delete('/:id', authenticateToken, isAdmin, TreeController.delete);
+router.post('/:id/delete', authenticateToken, isAdmin, TreeController.delete);
 
 export default router;

@@ -21,7 +21,7 @@ export function authenticateToken(req, res, next) {
             return res.status(StatusCodes.FORBIDDEN).render('login', { error: 'Session expirée' });
         }
 
-     // Stock les infos de l’utilisateur (id + rôle) dans l’objet req
+    // Stock les infos de l’utilisateur (id + rôle) dans l’objet req
     req.userId = decoded.id;
     req.userRole = decoded.role;
 
