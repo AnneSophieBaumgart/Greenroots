@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+  <h1>Mon Panier</h1>
+
+  <% if (panierItems.length===0) { %>
+    <p>Votre panier est vide</p>
+    <a href="/trees">Voir les arbres</a>
+    <% } else { %>
+
+      <% panierItems.forEach(item=> { %>
+        <div class="panier-item">
+          <img src="<%= item.tree.image %>" alt="<%= item.tree.name %>">
+          <h3>
+            <%= item.tree.name %>
+          </h3>
+          <p>Prix : <%= item.tree.price %> €</p>
+          <p>Quantité : <%= item.quantity %>
+          </p>
+          <p>Sous-total : <%= item.subtotal %> €</p>
+
+          <form action="/panier/remove" method="POST">
+            <input type="hidden" name="tree_id" value="<%= item.tree.id %>">
+            <button type="submit">Supprimer</button>
+          </form>
+        </div>
+        <% }) %>
+
+          <h2>Total : <%= total %> €</h2>
+
+          <% } %>
+
+            <%- include('partials/footer') %>
