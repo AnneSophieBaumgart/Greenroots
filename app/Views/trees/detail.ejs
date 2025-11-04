@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <article class="tree_card">
+    <img class="tree_img" src="<%= item.image %>" alt="<%= item.name %>">
+    <h2><%= item.name %></h2>
+    <p><%= item.description %></p>
+    <p>Origine : <%= item.origin %></p>
+    <p>Prix : <%= item.price %> €</p>
+    <a href="/trees" class="back_button">← Retour à la liste</a>
+  </article>
+</section>
+
+<%- include('../partials/footer') %>

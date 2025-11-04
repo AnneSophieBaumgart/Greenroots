@@ -23,32 +23,26 @@ class CoreController {
      */
     getAll = async (req, res) => {
         try {
-            // Récupère tous les enregistrements
+            // Récupère tous les enregistrements de la table associée au modèle (ex: tous les arbres)
             const items = await this.model.findAll();
 
-            //Si la requête vient d’un navigateur (HTML), on affiche une vue
-            if (req.accepts('html')) {
-                return res.status(StatusCodes.OK).render(
-                   `${this.viewFolder}/list`, // => Views/trees/list.ejs
-                    { title: `Liste des ${this.model.name}s`, items }
-                );
+            // Rend la vue EJS correspondante (ex : Views/trees/list.ejs)
+            res.status(StatusCodes.OK).render(
+            `${this.viewFolder}/list`,
+            { 
+                title: `Liste des ${this.model.name}s`, // Titre dynamique (ex: "Liste des Trees")
+                items  // Données passées à la vue EJS                               
             }
-
-            // Sinon (requête API / AJAX), on renvoie du JSON
-            res.status(StatusCodes.OK).json(items); // Retourne la liste en JSON (code 200)
+            );
 
         } catch (error) {
+        // Affiche l’erreur dans la console
         console.error(error);
 
-        // En cas d’erreur, on gère les deux cas : HTML ou JSON
-        if (req.accepts('html')) {
-            return res
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .render('error', { message: "Erreur serveur." });
+        // Rend une page d’erreur simple en cas de problème serveur
+        res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur serveur." });
         }
-
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur serveur." });
-    }
     };
 
     /**
@@ -60,19 +54,32 @@ class CoreController {
     getById = async (req, res) => {
         try {
             
-            const { id } = req.params;// Récupère l'ID depuis l'URL
+            // Récupèrer l'ID depuis l'URL (exemple: /trees/3 => id = 3)
+            const { id } = req.params;
             
-            const item = await this.model.findByPk(id); // Cherche l'élément par clé primaire
+            // Chercher l'élément dans la base via sa clé primaire
+            const item = await this.model.findByPk(id);
 
-            if (!item) { // Si l'élément n'existe pas
-                return res.status(StatusCodes.NOT_FOUND).json({ error: "Élément non trouvé." });
+            // Si l'élément n'existe pas → afficher la page d'erreur
+            if (!item) {
+                return res.status(StatusCodes.NOT_FOUND).render('error', { message: "Élément non trouvé." });
             }
-            //TODO res.render(this.model.name.toLowerCase()/detail, {item})
-            res.status(StatusCodes.OK).json(item); // Retourne l'élément trouvé (code 200)
+
+            // Si tout va bien → affiche la vue EJS correspondante
+            res.status(StatusCodes.OK).render(
+            `${this.viewFolder}/detail`, // Exemple : Views/trees/detail.ejs
+            {
+                title: `${this.model.name} #${id}`, // Exemple : "Tree #3"
+                item, // Passe l’élément à la vue
+            }
+            );
 
         } catch (error) {
+            // En cas d’erreur serveur
             console.error(error);
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur serveur." });
+
+            // Affiche la page d’erreur générique error.ejs
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur serveur." });
         }
     };
 
@@ -83,54 +90,108 @@ class CoreController {
      * @param {Response} res
      */
     create = async (req, res) => {
-        try {
-            const { error, value } = this.schema.validate(req.body); // Valide les données entrantes
 
-            if (error) { // Si les données ne passent pas la validation
-                return res.status(StatusCodes.BAD_REQUEST).json({ error: error.details[0].message });
+        try {
+            // Si la requête est GET → afficher le formulaire vide
+            if (req.method === 'GET') {
+            return res.status(StatusCodes.OK).render(
+                `${this.viewFolder}/create`, // Exemple : Views/trees/create.ejs
+                { 
+                title: `Créer un ${this.model.name}`, // Titre dynamique
+                errorMessage: null, // Aucune erreur joi au premier affichage
+                oldInput: {} // Formulaire vide
+                }
+            );
             }
 
-            const newItem = await this.model.create(value);  // Crée un nouvel enregistrement
+            // Si la requête est POST => valider les données
+            const { error, value } = this.schema.validate(req.body);
 
-            res.status(StatusCodes.CREATED).json(newItem); // Retourne l'objet créé (code 201)
+            //  Si la validation échoue => réafficher le formulaire avec les erreurs et les données précédentes
+            if (error) {
+            return res.status(StatusCodes.BAD_REQUEST).render(
+                `${this.viewFolder}/create`,
+                { 
+                title: `Créer un ${this.model.name}`,
+                errorMessage: error.details[0].message, // Message d’erreur Joi
+                oldInput: req.body // Garde les champs remplis
+                }
+            );
+            }
+
+            // Si tout est bon => insérer en base de données
+            const newItem = await this.model.create(value);
+
+            // Rediriger vers la page de liste après création
+            res.redirect(`/${this.viewFolder}`);
 
         } catch (error) {
+            // En cas d’erreur serveur
             console.error(error);
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur lors de la création." });
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur lors de la création." });
         }
     };
 
     /**
-     * Met à jour une Ressource d'une certaine table par son id
-     *
-     * @param {Request} req
-     * @param {Response} res
-     */
+    * Met à jour une ressource par son ID
+    *
+    * @param {Request} req
+    * @param {Response} res
+    */
     update = async (req, res) => {
-        try {
+    try {
 
-            const { id } = req.params;// Récupère l'ID depuis l'URL
+        // Récupère l'ID dans l'URL
+        const { id } = req.params;
 
-            const { error, value } = this.schema.validate(req.body); // Valide les nouvelles données
+        // Cherche l'élément à modifier
+        const item = await this.model.findByPk(id);
 
-            if (error) {
-                return res.status(StatusCodes.BAD_REQUEST).json({ error: error.details[0].message });
-            }
-
-            const item = await this.model.findByPk(id); // Recherche l'élément à modifier
-
-            if (!item) {// Si il ne le trouve pas
-                return res.status(StatusCodes.NOT_FOUND).json({ error: "Élément non trouvé." });
-            }
-
-            await item.update(value); // Met à jour l'élément
-
-            res.status(StatusCodes.OK).json(item); // Retourne l'élément mis à jour (code 200)
-        } catch (error) {
-            console.error(error);
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur lors de la mise à jour." });
+        // Si l'élément n'existe pas => afficher la page d'erreur
+        if (!item) {
+        return res.status(StatusCodes.NOT_FOUND).render('error', { message: "Élément non trouvé." });
         }
+
+        // Si la requête est GET => afficher le formulaire pré-rempli
+        if (req.method === 'GET') {
+            return res.status(StatusCodes.OK).render(
+                `${this.viewFolder}/edit`, // Exemple : Views/trees/edit.ejs
+                {
+                title: `Modifier ${this.model.name} #${id}`,
+                errorMessage: null,
+                oldInput: item // Pré-remplir le formulaire avec les valeurs existantes
+                }
+            );
+        }
+
+        // Si la requête est POST => valider les données du formulaire
+        const { error, value } = this.schema.validate(req.body);
+
+        // Si validation échoue => réafficher le formulaire avec les erreurs
+        if (error) {
+        return res.status(StatusCodes.BAD_REQUEST).render(
+            `${this.viewFolder}/edit`,
+            {
+            title: `Modifier ${this.model.name} #${id}`,
+            errorMessage: error.details[0].message,
+            oldInput: req.body
+            }
+        );
+        }
+
+        // Met à jour l'élément en bdd
+        await item.update(value);
+
+        //Puis redirige vers la page de détail
+        res.redirect(`/${this.viewFolder}/${id}`);
+
+    } catch (error) {
+        // Gestion des erreurs serveur
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur lors de la mise à jour." });
+    }
     };
+
 
     /**
      * Supprime une Ressource d'une certaine table par son id
@@ -141,23 +202,30 @@ class CoreController {
     delete = async (req, res) => {
         try {
 
-            const { id } = req.params; // Récupère l'ID depuis l'URL
+            // Récupère l'ID depuis l'URL
+            const { id } = req.params;
 
-            const item = await this.model.findByPk(id); // Recherche l'élément
+            // Recherche l'élément à supprimer
+            const item = await this.model.findByPk(id);
 
+            // Si l'élément n'existe pas → page d’erreur
             if (!item) {
-                return res.status(StatusCodes.NOT_FOUND).json({ error: "Élément non trouvé." });
+                return res.status(StatusCodes.NOT_FOUND).render('error', { message: "Élément non trouvé." });
             }
 
-            await item.destroy(); // Supprime l'élément
+            // Supprime l'élément de la base
+            await item.destroy();
 
-            res.status(StatusCodes.NO_CONTENT).send(); // Répond code 204 (aucun contenu)
+            // Redirige vers la liste après suppression
+            res.redirect(`/${this.viewFolder}`);
 
         } catch (error) {
             console.error(error);
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Erreur lors de la suppression." });
+
+            // En cas d’erreur serveur → affiche la page error.ejs
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: "Erreur lors de la suppression." });
         }
-    };
+        };
 }
 
 // Exporte la classe pour être héritée par d'autres contrôleurs

@@ -1,5 +1,6 @@
 import sequelize from '../Models/sequelize.client.js';
 import { User, Place, Tree, PlaceHasPlant, Order, OrderHasTree, UserHasTree} from '../Models/index.js';
+import * as argon2 from 'argon2'; // Pour hasher et vérifier les mots de passe
 
 
 try{
@@ -16,14 +17,14 @@ try{
             first_name: 'Alice',
             last_name: 'Dupont',
             email: 'alice@mail.com',
-            password: 'password',
+            password: await argon2.hash('password'),
             role: 'client',
         },
         {
             first_name: 'Bob',
             last_name: 'Marley',
             email: 'bob@mail.com',
-            password: 'passwordadmin',
+            password: await argon2.hash('passwordadmin'),
             role: 'admin',
         },
     ]);
