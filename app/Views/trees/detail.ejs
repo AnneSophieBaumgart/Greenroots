@@ -1,14 +1,31 @@
-<%- include('../partials/header') %>
+<%-include('../partials/header')%>
 
-<section class="section">
-  <article class="tree_card">
-    <img class="tree_img" src="<%= item.image %>" alt="<%= item.name %>">
-    <h2><%= item.name %></h2>
-    <p><%= item.description %></p>
-    <p>Origine : <%= item.origin %></p>
-    <p>Prix : <%= item.price %> €</p>
-    <a href="/trees" class="back_button">← Retour à la liste</a>
-  </article>
-</section>
+    <section id="details">
+        <h1 class="details_h1">Détail du <%= item.name %>  </h1>
+        <div class="retour">
+            <a class="retour_button" href="/trees"> &lt;&lt; Retour aux arbres</a>
+        </div>
 
-<%- include('../partials/footer') %>
+        
+        <article class="article_details">
+          <img class="article_image"
+            src="<%= item.image %>"
+            alt="<%= item.name %>"
+          />
+          <div class="details_info">
+            <h2><span>Nom</span> : <%= item.name %></h2>
+            <p><span>Origine </span> : <%= item.origin %></p>
+            <p><span>Prix</span> : <%= item.price %> €</p>
+
+            <p class="desc"><span>Description</span> : <%= item.description %></p>
+            
+            <p><span>Disponibilité</span> : <%=item.stock%> Arbres</p>
+            <a class="ajouter_au_panier_button" href="/panier">Ajouter au panier</a>    
+            
+            
+          </div>
+        </article>
+        
+      </section>
+
+      <%-include('../partials/footer')%>
