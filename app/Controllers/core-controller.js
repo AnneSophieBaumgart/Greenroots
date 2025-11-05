@@ -147,6 +147,7 @@ class CoreController {
       // Cherche l'élément à modifier
       const item = await this.model.findByPk(id);
 
+
       // Si l'élément n'existe pas => afficher la page d'erreur
       if (!item) {
         return res.status(StatusCodes.NOT_FOUND).render('error', { message: "Élément non trouvé." });
