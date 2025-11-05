@@ -1,33 +1,45 @@
 <%- include('../partials/header') %>
 
-<section class="section">
-  <h1><%= title %></h1>
+  <section class="form_container">
+    <h1>
+      <%= title %>
+    </h1>
 
-  <% if (errorMessage) { %>
-    <p class="error"><%= errorMessage %></p>
-  <% } %>
+    <% if (errorMessage) { %>
+      <p class="error">
+        <%= errorMessage %>
+      </p>
+      <% } %>
 
-  <form method="POST" action="/trees/create" class="create-form">
-    <label>Nom :</label>
-    <input type="text" name="name" required value="<%= oldInput.name || '' %>">
+        <form method="POST" action="/trees/create" class="tree_form">
+          <div class="form_field">
+            <label>Nom :</label>
+            <input type="text" name="name" required value="<%= oldInput.name || '' %>">
+          </div>
+          <div class="form_field">
+            <label>Description :</label>
+            <textarea name="description"><%= oldInput.description || '' %></textarea>
+          </div>
+          <div class="form_field">
+            <label>Image (URL) :</label>
+            <input type="url" name="image" value="<%= oldInput.image || '' %>">
+          </div>
+          <div class="form_field">
+            <label>Prix (€) :</label>
+            <input type="number" name="price" step="0.01" required value="<%= oldInput.price || '' %>">
+          </div>
+          <div class="form_field">
+            <label>Stock :</label>
+            <input type="number" name="stock" min="0" required value="<%= oldInput.stock || '' %>">
+          </div>
+          <div class="form_field">
+            <label>Origine :</label>
+            <input type="text" name="origin" required value="<%= oldInput.origin || '' %>">
+          </div>
+          <div class="form_submit">
+            <button type="submit">Créer</button>
+          </div>
+        </form>
 
-    <label>Description :</label>
-    <textarea name="description"><%= oldInput.description || '' %></textarea>
-
-    <label>Image (URL) :</label>
-    <input type="url" name="image" value="<%= oldInput.image || '' %>">
-
-    <label>Prix (€) :</label>
-    <input type="number" name="price" step="0.01" required value="<%= oldInput.price || '' %>">
-
-    <label>Stock :</label>
-    <input type="number" name="stock" min="0" required value="<%= oldInput.stock || '' %>">
-
-    <label>Origine :</label>
-    <input type="text" name="origin" required value="<%= oldInput.origin || '' %>">
-
-    <button type="submit">Créer</button>
-  </form>
-</section>
-
-<%- include('../partials/footer') %>
+  </section>
+  <%- include('../partials/footer') %>
