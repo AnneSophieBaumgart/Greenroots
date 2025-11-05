@@ -10,10 +10,13 @@ import Place from '../Models/place.model.js';
 export async function register(req, res) {
 
   // On récupère les données envoyées dans la requête
-  const { first_name, last_name, email, password } = req.body;
+  const { first_name, last_name, email, password, confirm_password } = req.body;
 
-  if (!first_name || !last_name || !email || !password) { // Vérifie que tous les champs sont fournis
+  if (!first_name || !last_name || !email || !password || !confirm_password) { // Vérifie que tous les champs sont fournis
     return res.status(StatusCodes.BAD_REQUEST).render('register', { error: 'Champs manquants' });
+  }
+  if (password !== confirm_password) { // Vérifie que les mots de passe correspondent
+    return res.status(StatusCodes.BAD_REQUEST).render('register', { error: 'Les mots de passe ne correspondent pas' });
   }
 
   try {
