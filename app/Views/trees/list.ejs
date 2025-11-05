@@ -7,10 +7,12 @@
         <% if (items && items.length > 0) { %>
             <% items.forEach(tree => { %>
             <article class="tree_card">
-                <img class="tree_img" 
-                    src="<%= tree.image ? tree.image : '/images/default-tree.jpg' %>" 
-                    alt="<%= tree.name %>">
-            <h2 class="name"><%= tree.name %></h2>
+                <a href="/trees/<%= tree.id %>">
+                    <img class="tree_img" 
+                        src="<%= tree.image ? tree.image : '/images/default-tree.jpg' %>" 
+                        alt="<%= tree.name %>">
+                </a>
+                <h2 class="name"><a href="/trees/<%= tree.id %>"><%= tree.name %></a></h2>
             <p class="description"><%= tree.description || 'Aucune description disponible.' %></p>
             <span class="price">Prix : <%= tree.price %> €</span>
             <button class="buy_button">Acheter</button>
