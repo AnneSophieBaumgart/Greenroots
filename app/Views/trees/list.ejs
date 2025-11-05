@@ -19,6 +19,7 @@
             <% if (userRole === 'admin') { %>
                 <form action="/trees/<%= tree.id %>/delete" method="POST" onsubmit="return confirm('Supprimer cet arbre ?')">
                     <button type="submit" class="delete-btn">🗑 Supprimer</button>
+                    <a href="/trees/<%= tree.id %>/edit" class="edit-btn">✏️ Modifier</a>
                 </form>
             <% } %>
 
