@@ -7,6 +7,9 @@
   <title>GreenRoots</title>
   <link rel="stylesheet" href="/css/reset.css">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/login.css">
@@ -24,7 +27,7 @@
 <body>
   <header class="header">
     <nav class="navigation">
-      <img class="logo" href="/" src="/images/logoff.jpg" alt="GreenRoots Logo">
+      <a href="/"><img class="logo" src="/images/logoff.jpg" alt="GreenRoots Logo"></a>
 
       <label for="menu" class="icon">
         <i class="fi fi-br-menu-burger"></i>
@@ -32,13 +35,24 @@
 
       <input type="checkbox" id="menu">
 
-      <ul class="nav_links">
+      <ul class="nav_links"> <%# barre de navigation %>
         <li><a href="/">Home</a></li>
         <li><a href="/trees">Nos Arbres</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <a href="/login" class="connexion">connexion</a>
+      <ul class="nav_icons">
+    <% if (userId) { %>
+        <% if (userRole === 'admin') { %>
+          <a href="/dashboard" id="user_icon"><i class="fi fi-bs-admin"></i></a> <%# Admin Dashboard %>
+        <% } else { %>
+          <a href="/dashboard" id="user_icon"><i class="fi fi-ss-user"></i></a> <%# User Dashboard %>
+        <% } %>
+        <a href="/logout" id="user_icon"><i class="fi fi-bs-exit"></i></a> <%# Logout %>
+      <% } else { %>
+        <a href="/login" class="connexion">Connexion</a>
+      <% } %>
+      </ul>
     </nav>
-
+    
   </header>
   <main>
