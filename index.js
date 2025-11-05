@@ -6,6 +6,8 @@ import homepageRouter from './app/Routes/homepage.route.js';
 import treeRouter from './app/Routes/tree.route.js';
 import contactRouter from './app/Routes/contact.route.js';
 import authRouter from './app/Routes/auth.route.js';
+import userRouter from './app/Routes/user.route.js';
+import placeRouter from './app/Routes/place.route.js';
 import './app/Models/index.js';
 import { decodeUserFromToken } from './app/Middlewares/decodeUserFromToken-middleware.js';
 import panierRouter from './app/Routes/panier.route.js';
@@ -48,6 +50,8 @@ app.use('/contact', contactRouter);
 
 
 app.use('/trees', treeRouter);
+app.use('/users', userRouter);
+app.use('/places', placeRouter);
 
 app.use('/panier', panierRouter);
 
