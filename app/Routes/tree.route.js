@@ -12,8 +12,6 @@ router.post('/create', authenticateToken, isAdmin, TreeController.create);
 router.get('/:id', TreeController.getById);
 router.get('/:id/edit', authenticateToken, isAdmin, TreeController.update);
 router.post('/:id/edit', authenticateToken, isAdmin, TreeController.update);
-
-// Suppression via DELETE (JS fetch)
 router.post('/:id/delete', authenticateToken, isAdmin, TreeController.delete);
 
 export default router;
