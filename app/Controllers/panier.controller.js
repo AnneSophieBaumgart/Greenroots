@@ -125,6 +125,65 @@ export async function addToPanier(req, res) {
   }
 }
 
+// ---- mettre à jour la quantité d'un arbre dans le panier ---- //
+
+export async function updatePanier(req, res) {
+  try {
+    // récupère l'ID de l'arbre et la nouvelle quantité depuis le formulaire
+    const { tree_id, quantity } = req.body;
+
+    // convertit la quantité en nombre entier
+    const newQuantity = parseInt(quantity);
+
+    // vérifie que la quantité est valide ( min 1)
+    if (newQuantity < 1) {
+      // si 0 ou négatif, redirige vers le panier sans modification
+      return res.redirect('/panier');
+    }
+
+    // vérifie que le panier existe dans la session
+    if (!req.session.panier) {
+      // si pas de panier, redirige vers la page du panier
+      return res.redirect('/panier');
+    }
+
+    // récupère l'arbre depuis la BDD pour vérifier le stock
+    const tree = await Tree.findByPk(tree_id);
+
+    // vérifie que l'arbre existe dans la BDD
+    if (!tree) {
+      // si l'arbre n'existe pas, redirige vers le panier
+      return res.redirect('/panier');
+    }
+    // vérifie que la nouvelle quantité ne dépasse pas le stock disponible
+    if (newQuantity > tree.stock) {
+      return res.redirect('/panier');
+    }
+
+    // cherche l'arbre dans le panier de la session
+    const existingItem = req.session.panier.find(
+      item => item.tree_id === parseInt(tree_id)
+    );
+
+    // si l'arbre est dans le panier
+    if (existingItem) {
+      // met à jour la quantité
+      existingItem.quantity = newQuantity;
+    } else {
+      return res.redirect('/panier');
+    }
+
+    // redirige vers la page panier avec les nouvelles quantités
+    res.redirect('/panier');
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
+      error: 'Erreur lors de la mise à jour du panier'
+    });
+  }
+}
 
 // ---- supprimer un arbre du panier ---- \\
 
