@@ -23,15 +23,6 @@
             </p>
             <span class="price">Prix : <%= tree.price %> €</span>
             <button class="buy_button">Acheter</button>
-            <% if (userRole==='admin' ) { %>
-              <form action="/trees/<%= tree.id %>/edit" method="GET">
-                <button type="submit" class="edit_button">Modifier</button>
-              </form>
-              <form action="/trees/<%= tree.id %>/delete" method="POST">
-                <button type="submit" class="delete_button">Supprimer</button>
-              </form>
-              <% } %>
-
           </article>
           <% }) %>
             <% } else { %>
