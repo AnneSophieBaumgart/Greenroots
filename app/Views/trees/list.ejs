@@ -4,9 +4,11 @@
     <h1 class="trees_h1">
       Liste de nos arbres
     </h1>
+    <% if (userRole==='admin' ) { %>
     <div class="create">
       <a class="create_button" href="/trees/create">Ajouter un arbre</a>
     </div>
+    <% } %>
     <div class="trees_section">
       <% if (items && items.length> 0) { %>
         <% items.forEach(tree=> { %>
@@ -31,7 +33,6 @@
                 <button type="submit" class="delete_button">Supprimer</button>
               </form>
               <% } %>
-
           </article>
           <% }) %>
             <% } else { %>
