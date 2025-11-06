@@ -12,7 +12,6 @@ class CoreController {
     this.model = model; // Stocke le modèle (table)
     this.schema = schema; // Stocke le schéma de validation
     this.viewFolder = viewFolderName || model.name.toLowerCase() + 's'; // Nom du dossier des vues
-
   }
 
   /**
