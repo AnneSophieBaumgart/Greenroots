@@ -15,8 +15,26 @@
                 <%= item.tree.name %>
               </h3>
               <p>Prix unitaire : <%= item.tree.price %> €</p>
-              <p>Quantité : <%= item.quantity %>
-              </p>
+              <div class="cart_item_quantity">
+                <p>Quantité : </p>
+                <div class="quantity_controls">
+                  <form action="/panier/update" method="POST" class="quantity_form">
+                    <input type="hidden" name="tree_id" value="<%= item.tree.id %>">
+                    <input type="hidden" name="quantity" value="<%= item.quantity - 1 %>">
+                    <button type="submit" class="quantity_btn" <%=item.quantity <=1 ? 'disabled' : '' %>>-</button>
+                  </form>
+                  <span class="quantity_display">
+                    <%= item.quantity %>
+                  </span>
+                  <form action="/panier/update" method="POST" class="quantity_form">
+                    <input type="hidden" name="tree_id" value="<%= item.tree.id %>">
+                    <input type="hidden" name="quantity" value="<%= item.quantity + 1 %>">
+                    <button type="submit" class="quantity_btn" <%=item.quantity>= item.tree.stock ? 'disabled' : ''
+                      %>
+                      >+</button>
+                  </form>
+                </div>
+              </div>
               <p class="cart_item_subtotal">Sous-total : <%= item.subtotal %> €</p>
             </div>
             <form class="cart_item_remove" action="/panier/remove" method="POST">
