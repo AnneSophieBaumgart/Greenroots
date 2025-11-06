@@ -1,33 +1,36 @@
-<%-include('../partials/header')%>
+<%- include('../partials/header') %>
 
-    <section id="details">
-        <h1 class="details_h1">Détail du <%= item.name %>  </h1>
-        <div class="retour">
-            <a class="retour_button" href="/trees"> &lt;&lt; Retour aux arbres</a>
-        </div>
+  <section id="details">
+    <h1 class="details_h1">Détail du <%= item.name %>
+    </h1>
+    <div class="retour">
+      <a class="retour_button" href="/trees"> &lt;&lt; Retour aux arbres</a>
+    </div>
 
-        
-        <article class="article_details">
-          <img class="article_image"
-            src="<%= item.image %>"
-            alt="<%= item.name %>"
-          />
+
+    <article class="article_details">
+      <% if (item.image) { %>
+        <img class="article_image" src="<%= item.image %>" alt="<%= item.name %>" />
+        <% } %>
           <div class="details_info">
-            <h2><span>Nom</span> : <%= item.name %></h2>
-            <p><span>Origine </span> : <%= item.origin %></p>
+            <h2><span>Nom</span> : <%= item.name %>
+            </h2>
+            <p><span>Origine </span> : <%= item.origin %>
+            </p>
             <p><span>Prix</span> : <%= item.price %> €</p>
-            <p class="desc"><span>Description</span> : <%= item.description %></p>
+            <p class="desc"><span>Description</span> : <%= item.description %>
+            </p>
             <p><span>Disponibilité</span> : <%=item.stock%> Arbres</p>
 
             <form action="/panier/add" method="POST" class="add-to-cart-form">
-                <input type="hidden" name="tree_id" value="<%= item.id %>">
-                <input type="number" name="quantity" value="1" min="1" max="<%=item.stock%>" class="quantity-input">
-                <button type="submit" class="ajouter_au_panier_button">Ajouter au panier</button>
+              <input type="hidden" name="tree_id" value="<%= item.id %>">
+              <input type="number" name="quantity" value="1" min="1" max="<%=item.stock%>" class="quantity-input">
+              <button type="submit" class="ajouter_au_panier_button">Ajouter au panier</button>
             </form>
-            
-          </div>
-        </article>
-        
-      </section>
 
-      <%-include('../partials/footer')%>
+          </div>
+    </article>
+
+  </section>
+
+  <%- include('../partials/footer') %>

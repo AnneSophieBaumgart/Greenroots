@@ -21,8 +21,9 @@
             <textarea name="description"><%= oldInput.description || '' %></textarea>
           </div>
           <div class="form_field">
-            <label>Image (URL) :</label>
-            <input type="url" name="image" value="<%= oldInput.image || '' %>">
+            <label>Image :</label>
+            <input type="text" name="image" value="<%= oldInput.image || '' %>"
+              placeholder="https://... ou /images/mon-arbre.jpg">
           </div>
           <div class="form_field">
             <label>Prix (€) :</label>
