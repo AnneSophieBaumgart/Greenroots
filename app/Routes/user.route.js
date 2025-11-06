@@ -10,8 +10,8 @@ router.get('/', UserController.getAll);
 router.get('/create', authenticateToken, isAdmin, UserController.create);
 router.post('/create', authenticateToken, isAdmin, UserController.create);
 router.get('/:id', UserController.getById);
-router.get('/:id/edit', authenticateToken, isAdmin, UserController.update);
-router.post('/:id/edit', authenticateToken, isAdmin, UserController.update);
+router.get('/:id/edit', authenticateToken, isAdmin, UserController.updateUser);
+router.post('/:id/edit', authenticateToken, isAdmin, UserController.updateUser);
 router.post('/:id/delete', authenticateToken, isAdmin, UserController.delete);
 
 export default router;
