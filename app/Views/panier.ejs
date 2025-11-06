@@ -1,10 +1,9 @@
 <%- include('partials/header') %>
 
   <h1 class="cart_title">Mon Panier</h1>
-
+  <a class="cart_back" href="/trees">Voir les arbres</a>
   <% if (panierItems.length===0) { %>
     <p class="cart_empty">Votre panier est vide</p>
-    <a class="cart_back" href="/trees">Voir les arbres</a>
     <% } else { %>
 
       <% panierItems.forEach(item=> { %>
@@ -27,8 +26,9 @@
           </div>
         </div>
         <% }) %>
-          <div class="ccart_total_container">
+          <div class="cart_total_container">
             <h2 class="cart_total">Total : <%= total %> €</h2>
+            <h2 class="cart_validate">Valider mon panier</h2>
           </div>
           <% } %>
 
