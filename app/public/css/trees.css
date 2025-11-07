@@ -104,6 +104,7 @@ main {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Bouton hover */
