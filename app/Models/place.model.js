@@ -8,6 +8,12 @@ Place.init({
         type: DataTypes.STRING,
         allowNull: false        // Le nom de la catégorie est obligatoire (non null)
     },
+    description: {
+        type: DataTypes.TEXT,
+    },
+    image : {
+        type: DataTypes.STRING,
+    },
 },
 {
     sequelize,              // Instance Sequelize (connexion à la BDD)
