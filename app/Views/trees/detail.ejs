@@ -62,17 +62,20 @@
     try {
       // Appel à la route Express sécurisée (/trees/api/plants) avec le nom traduit
       const response = await fetch(`/trees/api/plants?name=${encodeURIComponent(name)}`);
+      //encodeURIComponent() => remplace les espaces, les accents et les caractères spéciaux par des codes compréhensibles pour un serveur web.
+      // ( /api?name=Cerisier du Japon (sakura)  =>  /trees/api/plants?name=Cerisier%20du%20Japon%20(sakura))
 
       //Convertit la réponse en JSON
       const data = await response.json(); 
 
       // Si aucun résultat n’est trouvé => message d’erreur affiché
+      // Si data est vide, ou que data.data est vide, ou que le tableau n’a aucune longueur (0), alors on entre dans le if
       if (!data?.data?.length) {
         document.getElementById("scientific-name").textContent = "Nom scientifique non disponible";
         return;
       }
 
-      //  On récupère le nom scientifique du premier résultat
+      //On récupère le nom scientifique du premier résultat dans l'objet JSON que nous renvoie Perenual ou un texte par défaut si absent
       const scientificName = data.data[0].scientific_name?.[0] || "Nom scientifique inconnu";
 
       // On affiche le nom dans le <span id="scientific-name">
