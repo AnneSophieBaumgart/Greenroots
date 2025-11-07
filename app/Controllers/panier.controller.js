@@ -68,37 +68,61 @@ export async function getPanier(req, res) {
 // ---- ajouter un arbre au panier ---- \\
 
 export async function addToPanier(req, res) {
+  try {
 
-  //récupère les données envoyées
-  const { tree_id, quantity } = req.body;
+    //récupère les données envoyées
+    const { tree_id, quantity } = req.body;
 
-  // vérifie si un panier existe dans la session
-  if (!req.session.panier) {
-    req.session.panier = [];
-  }
+    // vérifie si un panier existe dans la session
+    if (!req.session.panier) {
+      req.session.panier = [];
+    }
 
-  //chercher si l'arbre existe déjà dans le panier
-  //find retourne l'item si trouvé, sinon undefined
-  const existingItem = req.session.panier.find(
-    item => item.tree_id === parseInt(tree_id)  // convertit tree_id en nombre pour comparer
-  );
+    // récupère l'arbre depuis la BDD
+    const tree = await Tree.findByPk(tree_id);
 
-  // si l'arbre est déjà dans le panier
-  if (existingItem) {
+    // vérifie si l'arbre existe
+    if (!tree) {
+      return res.redirect('/trees');
+    }
 
-    //augmente la quantité si existante
-    //parsInt convertit la quantité en nombre entier
-    existingItem.quantity += parseInt(quantity);
-  } else {
+    //chercher si l'arbre existe déjà dans le panier
+    const existingItem = req.session.panier.find(
+      item => item.tree_id === parseInt(tree_id)
+    );
 
-    //si l'arbre n'est pas dans le panier, l'ajoute
-    req.session.panier.push({
-      tree_id: parseInt(tree_id),
-      quantity: parseInt(quantity)
+    // calcul la quantité totale
+    let totalQuantity;
+    if (existingItem) {
+      totalQuantity = existingItem.quantity + parseInt(quantity);
+    } else {
+      totalQuantity = parseInt(quantity);
+    }
+
+    // vérifie le stock
+    if (totalQuantity > tree.stock) {
+      return res.redirect(`/trees/${tree_id}?error=stock`);
+    }
+
+    // ajout/mettre à jour le panier
+    if (existingItem) {
+      existingItem.quantity += parseInt(quantity);
+    } else {
+      req.session.panier.push({
+        tree_id: parseInt(tree_id),
+        quantity: parseInt(quantity)
+      });
+    }
+
+    // redirige l'utilisateur vers la page du panier
+    res.redirect('/panier');
+
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
+      error: 'Erreur lors de l\'ajout au panier'
     });
   }
-  // redirige l'utilisateur vers la page du panier
-  res.redirect('/panier');
 }
 
 
