@@ -1,17 +1,17 @@
 <%- include('../partials/header') %>
 
 <section class="form_container">
-  <h1><%= title %></h1>
+    <h1><%= title %></h1>
 
-  <% if (errorMessage) { %>
-    <p class="error"><%= errorMessage %></p>
-  <% } %>
+    <% if (errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } %>
 
-  <form class="user_form" action="/users/<%= oldInput.id %>/edit" method="POST">
-    <div class="form_field">
-      <label>Prénom :</label>
-      <input type="text" name="first_name" value="<%= oldInput.first_name %>" required>
-    </div>
+    <form class="user_form" action="/users/<%= oldInput.id %>/edit" method="POST">
+        <div class="form_field">
+            <label>Prénom :</label>
+            <input type="text" name="first_name" value="<%= oldInput.first_name %>" required>
+        </div>
 
     <div class="form_field">
       <label>Nom :</label>
