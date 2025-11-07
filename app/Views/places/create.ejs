@@ -1,6 +1,6 @@
 <%-include('../partials/header')%>
 
-<section class="create_place_section">
+<section class="form_container">
     <h1 class="create_place_h1">Ajouter un lieu</h1>
 
     <% if (errorMessage) { %>
@@ -9,7 +9,7 @@
       </p>
       <% } %>
       
-    <form class="create_place_form" action="/places/create" method="POST">
+    <form class="place_form" action="/places/create" method="POST">
 
         <div class="form_field">
             <label>Nom :</label>

@@ -1,6 +1,6 @@
 <%- include('../partials/header')%>
 
-<section>
+<section class="form_container">
     <h1> <%=title%> </h1>
     <% if (errorMessage) { %>
       <p class="error">
@@ -13,10 +13,17 @@
         <input type="text" name="name" value="<%=oldInput.name %>" required>
       </div>
       <div class="form_field">
+        <label>Description :</label>
+        <textarea name="description"><%=oldInput.description %></textarea>
+      </div>
+      <div class="form_field">
+        <label>Image :</label>
+        <input type="text" name="image" value="<%=oldInput.image %>"
+              placeholder="https://... ou /images/mon-arbre.jpg">
+      </div>
         <div class="form_submit">
           <button type="submit">Mettre à jour</button>
         </div>
-      </div>
     </form>
 </section>
 
