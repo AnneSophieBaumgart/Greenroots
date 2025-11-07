@@ -2,7 +2,7 @@
 
   <h1 class="dashboard">Bienvenue </h1>
   <section id="profil">
-    <div class="user">
+    <article class="user">
       <h2>Profil</h2>
       <h3>Nom : </h3>
       <p>
@@ -16,31 +16,40 @@
       <p>
         <%= user.email %>
       </p>
-    </div>
-    <div class="trees">
-      <h2>Liste des arbres :</h2>
-      <% user.UserHasTrees.forEach(userTree=> { %>
-        <h3>Arbre :</h3>
-        <p>
-          <%= userTree.Tree.name %>
-        </p>
-        <% userTree.Tree.Places.forEach(place=> { %>
-          <h3>Quantité :</h3>
-          <p>
-            <%= place.PlaceHasPlant.quantity %>
-          </p>
-          <h3>Lieu(x) : </h3>
-          <p>
-            <%= place.name %>
-          </p>
-          <% }) %>
+    </article>
+
+    <article class="trees">
+      <% if (userRole === 'admin') { %>
+        <h2>Gestion des arbres</h2>
+        <div class="admin-actions">
+          <a href="/trees/create" class="action-button">Ajouter un arbre</a>
+          <a href="/trees" class="action-button">Voir tous les arbres</a>
+          <a href="/users" class="action-button">Liste des utilisateurs</a>
+        </div>
+        <div class="tree-actions">
+          <a href="/trees" class="action-button">Gérer les arbres</a>
+        </div>
+      <% } else { %>
+        <h2>Mes arbres commandés</h2>
+        <% if (user.UserHasTrees && user.UserHasTrees.length > 0) { %>
+          <div class="tree-list">
+            <% user.UserHasTrees.forEach(userTree => { %>
+              <div class="tree-item">
+                <h3><%= userTree.Tree.name %></h3>
+                <% userTree.Tree.Places.forEach(place => { %>
+                  <p>Planté à : <%= place.name %></p>
+                  <p>Quantité : <%= place.PlaceHasPlant.quantity %></p>
+                <% }) %>
+                <a href="/trees/<%= userTree.Tree.id %>" class="details-button">Voir les détails</a>
+              </div>
             <% }) %>
-    </div>
-    <% if (userRole==='admin' ) { %>
-    <div class="create">
-    <a class="create_button" href="/users">Liste des utilisateurs</a>
-    </div>
-    <% } %>
+          </div>
+        <% } else { %>
+          <p class="no-items">Vous n'avez pas encore d'arbres commandés</p>
+          <a href="/trees" class="action-button">Découvrir nos arbres</a>
+        <% } %>
+      <% } %>
+    </article>
     <div class="profil_logout"><a href="/logout">Se déconnecter</a></div>
 
 
