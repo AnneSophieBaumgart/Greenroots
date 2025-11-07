@@ -8,20 +8,30 @@ import { StatusCodes } from "http-status-codes";
 export async function getPanier(req, res) {
   try {
 
-    // vérifie si un panier existe dans la session
-    // si non, initialise un tableau vide
-    if (!req.session.panier) {
-      req.session.panier = [];
+    // récupère l'ID de l'user connecté depuis le token décodé
+    const userId = req.userId;
+
+    // vérifie si un panier existe pour cet dans la session
+    if (!req.session.paniers) {
+      req.session.paniers = {};
     }
 
-    // tableau vide pour stocker les détails du panier
+    // si cet utilisateur n'a pas encoe de panier, créer un tabeau vide
+    if (!req.session.paniers[userId]) {
+      req.session.paniers[userId] = [];
+    }
+
+    // récupère le panier de cet utilisateur spécifique
+    const userPanier = req.session.paniers[userId];
+
+    // taableau vide pour stocker les détails du panier
     const panierItems = [];
 
-    // initialise le total à 0
+    // initialise le total à 
     let total = 0;
 
     // Boucle sur chaque item du panier stocké en session
-    for (const item of req.session.panier) {
+    for (const item of userPanier) {
 
       // on récupère les détails de l'arbre depuis bdd avec id
       const tree = await Tree.findByPk(item.tree_id, {
@@ -57,10 +67,11 @@ export async function getPanier(req, res) {
       total
     });
   } catch (error) {
+    console.error("Erreur dans getPAnier:", error);
 
     // rend une page d'erreur 500
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
-      error: 'Erreur serveur'
+      message: 'Erreur serveur'
     });
   }
 }
@@ -69,13 +80,19 @@ export async function getPanier(req, res) {
 
 export async function addToPanier(req, res) {
   try {
+    const userId = req.userId;
 
     //récupère les données envoyées
     const { tree_id, quantity } = req.body;
 
     // vérifie si un panier existe dans la session
-    if (!req.session.panier) {
-      req.session.panier = [];
+    if (!req.session.paniers) {
+      req.session.paniers = [];
+    }
+
+    // initialise le panier de cet utilisateur
+    if (!req.session.paniers[userId]) {
+      req.session.paniers[userId] = [];
     }
 
     // récupère l'arbre depuis la BDD
@@ -87,7 +104,7 @@ export async function addToPanier(req, res) {
     }
 
     //chercher si l'arbre existe déjà dans le panier
-    const existingItem = req.session.panier.find(
+    const existingItem = req.session.paniers[userId].find(
       item => item.tree_id === parseInt(tree_id)
     );
 
@@ -108,7 +125,7 @@ export async function addToPanier(req, res) {
     if (existingItem) {
       existingItem.quantity += parseInt(quantity);
     } else {
-      req.session.panier.push({
+      req.session.paniers[userId].push({
         tree_id: parseInt(tree_id),
         quantity: parseInt(quantity)
       });
@@ -120,7 +137,7 @@ export async function addToPanier(req, res) {
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
-      error: 'Erreur lors de l\'ajout au panier'
+      message: 'Erreur lors de l\'ajout au panier'
     });
   }
 }
@@ -129,6 +146,9 @@ export async function addToPanier(req, res) {
 
 export async function updatePanier(req, res) {
   try {
+
+    const userId = req.userId;
+
     // récupère l'ID de l'arbre et la nouvelle quantité depuis le formulaire
     const { tree_id, quantity } = req.body;
 
@@ -142,7 +162,7 @@ export async function updatePanier(req, res) {
     }
 
     // vérifie que le panier existe dans la session
-    if (!req.session.panier) {
+    if (!req.session.paniers[userId]) {
       // si pas de panier, redirige vers la page du panier
       return res.redirect('/panier');
     }
@@ -161,7 +181,7 @@ export async function updatePanier(req, res) {
     }
 
     // cherche l'arbre dans le panier de la session
-    const existingItem = req.session.panier.find(
+    const existingItem = req.session.paniers[userId].find(
       item => item.tree_id === parseInt(tree_id)
     );
 
@@ -180,7 +200,7 @@ export async function updatePanier(req, res) {
     console.error(error);
 
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
-      error: 'Erreur lors de la mise à jour du panier'
+      message: 'Erreur lors de la mise à jour du panier'
     });
   }
 }
@@ -189,15 +209,17 @@ export async function updatePanier(req, res) {
 
 export async function removeFromPanier(req, res) {
 
+  const userId = req.userId;
+
   //récupère l'ID de l'arbre à supprimer
   const { tree_id } = req.body;
 
   // vérifie que le panier  existe
-  if (req.session.panier) {
+  if (req.session.paniers[userId]) {
 
     //filter créer un nouveau tableau en gardant seulement
     // les items dont le tree_id est différent de celui à supprimer
-    req.session.panier = req.session.panier.filter(
+    req.session.paniers[userId] = req.session.paniers[userId].filter(
       item => item.tree_id !== parseInt(tree_id)
     );
   }

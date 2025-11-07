@@ -12,6 +12,8 @@
     href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/login.css">
@@ -46,6 +48,7 @@
       </ul>
       <ul class="nav_icons">
         <% if (userId) { %>
+          <a href="/panier" id="user_icon"><i class="fi fi-rr-shopping-cart"></i></a>
           <% if (userRole==='admin' ) { %>
             <a href="/dashboard" id="user_icon"><i class="fi fi-bs-admin"></i></a>
             <%# Admin Dashboard %>
