@@ -46,7 +46,9 @@
         <% }) %>
           <div class="cart_total_container">
             <h2 class="cart_total">Total : <%= total %> €</h2>
-            <h2 class="cart_validate">Valider mon panier</h2>
+            <form action="/panier/validate" method="POST" class="cart_validate_form">
+              <button type="submit" class="cart_validate_btn">Valider ma commande</button>
+            </form>
           </div>
           <% } %>
 
