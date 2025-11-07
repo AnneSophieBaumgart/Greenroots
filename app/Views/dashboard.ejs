@@ -36,6 +36,11 @@
           <% }) %>
             <% }) %>
     </div>
+    <% if (userRole==='admin' ) { %>
+    <div class="create">
+    <a class="create_button" href="/users">Liste des utilisateurs</a>
+    </div>
+    <% } %>
     <div class="profil_logout"><a href="/logout">Se déconnecter</a></div>
 
 
