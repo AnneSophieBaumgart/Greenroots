@@ -10,6 +10,8 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/login.css">
@@ -41,16 +43,20 @@
         <li><a href="/contact">Contact</a></li>
       </ul>
       <ul class="nav_icons">
-    <% if (userId) { %>
-        <% if (userRole === 'admin') { %>
-          <a href="/dashboard" id="user_icon"><i class="fi fi-bs-admin"></i></a> <%# Admin Dashboard %>
-        <% } else { %>
-          <a href="/dashboard" id="user_icon"><i class="fi fi-ss-user"></i></a> <%# User Dashboard %>
-        <% } %>
-        <a href="/logout" id="user_icon"><i class="fi fi-bs-exit"></i></a> <%# Logout %>
-      <% } else { %>
-        <a href="/login" class="connexion">Connexion</a>
-      <% } %>
+        <% if (userId) { %>
+          <a href="/panier" id="user_icon"><i class="fi fi-rr-shopping-cart"></i></a>
+          <% if (userRole==='admin' ) { %>
+            <a href="/dashboard" id="user_icon"><i class="fi fi-bs-admin"></i></a>
+            <%# Admin Dashboard %>
+              <% } else { %>
+                <a href="/dashboard" id="user_icon"><i class="fi fi-ss-user"></i></a>
+                <%# User Dashboard %>
+                  <% } %>
+                    <a href="/logout" id="user_icon"><i class="fi fi-bs-exit"></i></a>
+                    <%# Logout %>
+                      <% } else { %>
+                        <a href="/login" class="connexion">Connexion</a>
+                        <% } %>
       </ul>
     </nav>
     

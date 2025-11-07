@@ -11,6 +11,6 @@ export function isAdmin(req, res, next) {
         return next(); // On laisse passer
     }
 
-    // Sinon → on bloque l’accès
+    // Sinon => on bloque l’accès
     return res.status(StatusCodes.FORBIDDEN).render('error', { message: "Accès refusé. Réservé aux administrateurs."});
 }
