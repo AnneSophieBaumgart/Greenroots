@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
-<section class="section">
+  <section class="section">
     <h1 class="trees_h1">
-    Liste de nos arbres
+      Liste de nos arbres
     </h1>
     <% if (userRole==='admin' ) { %>
       <div class="create">
@@ -25,7 +25,7 @@
                   <%= tree.description || 'Aucune description disponible.' %>
                 </p>
                 <span class="price">Prix : <%= tree.price %> €</span>
-                <button class="buy_button">Acheter</button>
+                <a href="/trees/<%= tree.id %>" class="buy_button">Acheter</a>
                 <% if (userRole==='admin' ) { %>
                   <form action="/trees/<%= tree.id %>/edit" method="GET">
                     <button type="submit" class="edit_button">Modifier</button>
@@ -42,4 +42,4 @@
         </div>
   </section>
 
-<%- include('../partials/footer') %>
+  <%- include('../partials/footer') %>
