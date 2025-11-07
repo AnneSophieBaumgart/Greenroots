@@ -1,6 +1,9 @@
 import Tree from "../Models/tree.model.js";
 import Place from "../Models/place.model.js";
+import Order from "../Models/order.model.js";
+import OrderHasTree from "../Models/order_has_tree.model.js";
 import { StatusCodes } from "http-status-codes";
+import sequelize from "../Models/sequelize.client.js";
 
 
 // ---- afficher le panier ---- \\
@@ -87,7 +90,7 @@ export async function addToPanier(req, res) {
 
     // vérifie si un panier existe dans la session
     if (!req.session.paniers) {
-      req.session.paniers = [];
+      req.session.paniers = {};
     }
 
     // initialise le panier de cet utilisateur
@@ -224,4 +227,168 @@ export async function removeFromPanier(req, res) {
     );
   }
   res.redirect('/panier');
+}
+
+// ---- valider la commande (faux paiement) ---- //
+
+export async function validateOrder(req, res) {
+
+  // déclaration variable nouvelle transaction
+  let newTransaction;
+
+  try {
+
+
+    const userId = req.userId;
+
+    // vérifie que l'utlisateur est authentifié
+    if (!userId) {
+      return res.status(StatusCodes.UNAUTHORIZED).render('error', {
+        message: 'Vous devez être connecté pour valider une commande'
+      });
+    }
+
+    // vérifie que la session existe
+    if (!req.session.paniers) {
+      req.session.paniers = {};
+    }
+
+    //récupère le panier de l'user
+    const userPanier = req.session.paniers[userId];
+
+    // vérifie que le panier ne soit pas vide
+    if (!userPanier || userPanier.length === 0) {
+      return res.status(StatusCodes.BAD_REQUEST).render('error', {
+        message: 'Votre panier est vide'
+      });
+    }
+
+    // calcul le total et vérifie les stocks
+    let total = 0;
+    const panierDetails = [];
+
+    for (const item of userPanier) {
+      const tree = await Tree.findByPk(item.tree_id);
+
+      // vérifie que l'arbre existe
+      if (!tree) {
+        return res.status(StatusCodes.BAD_REQUEST).render('error', {
+          message: `Arbre introuvable (ID: ${item.tree_id})`
+        });
+      }
+
+      // vérife le stock disponible
+      if (tree.stock < item.quantity) {
+        return res.status(StatusCodes.BAD_REQUEST).render('error', {
+          message: `Stock insuffisant pour ${tree.name} (disponible: ${tree.stock})`
+        });
+      }
+
+      const subtotal = parseFloat(tree.price) * item.quantity;
+      total += subtotal;
+
+      panierDetails.push({
+        tree,
+        quantity: item.quantity,
+        subtotal
+      });
+    }
+
+    // démarre la transaction après toutes les vérifications
+    newTransaction = await sequelize.transaction();
+
+    // crée la commande avec la transaction
+    const order = await Order.create({
+      user_id: userId,
+      total_price: total,
+      status: 'paid',               // ou 'completed' pour simulation
+      //  payment_method: 'simulation'  // identifier que c'est un faux paiement
+    }, { transaction: newTransaction });
+
+    // crée les lignes de commande (order_has_tree) avec la transaction
+    for (const item of userPanier) {
+      await OrderHasTree.create({
+        order_id: order.id,
+        tree_id: item.tree_id,
+        quantity: item.quantity
+      }, { transaction: newTransaction });
+
+      // décrement le stock avec la transaction
+      const tree = await Tree.findByPk(item.tree_id);
+      await tree.update({
+        stock: tree.stock - item.quantity
+      }, { transaction: newTransaction });
+    }
+
+    // tout à reussi => valider la transaction
+    await newTransaction.commit();
+
+    // vide le panier
+    req.session.paniers[userId] = [];
+
+    // redirige vers la page de confirmation
+    res.redirect(`/panier/confirmation/${order.id}`);
+
+  } catch (error) {
+    // erreur => tout annuler si la transaction existe
+    if (newTransaction) {
+      try {
+        await newTransaction.rollback();
+      } catch (rollbackError) {
+        console.error('Erreur lors du rollback:', rollbackError);
+      }
+    }
+    console.error('Erreur validation commande:', error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
+      message: 'Erreur lors de la validation de la commande'
+    });
+  }
+}
+
+// ---- afficher la confirmation de la commande ---- //
+
+export async function getConfirmation(req, res) {
+  try {
+    const { orderId } = req.params;
+    const userId = req.userId;
+
+    // récupère la commande avec les arbres associés
+    const order = await Order.findByPk(orderId, {
+      include: [{
+        model: Tree,
+        through: {
+          attributes: ['quantity']
+        }
+      }]
+    });
+
+    // véerife que la commande existe
+    if (!order) {
+      return res.status(StatusCodes.NOT_FOUND).render('error', {
+        message: 'Commande introuvable'
+      });
+    }
+
+    // vérife que c'est bien la commande de cet utilisateur
+    if (order.user_id !== userId) {
+      return res.status(StatusCodes.FORBIDDEN).render('error', {
+        message: 'Accès non autorisé'
+      });
+    }
+
+    // génère un numéro de commande lisible
+    const orderNumber = `GR-${order.id.toString().padStart(6, '0')}`;
+
+    // rend la vue de confirmation
+    res.render('confirmation', {
+      order,
+      orderNumber
+    });
+
+  } catch (error) {
+    console.error('Erreur confirmation:', error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
+      message: 'Erreur lors de l\'affichage de la confirmation'
+    });
+  }
 }

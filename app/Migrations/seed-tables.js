@@ -34,40 +34,40 @@ try{
     const places = await Place.bulkCreate([
         { name: 'Turquie', description: 'Riche en forêts de pins, de chênes et de cèdres, la Turquie abrite plus de 22 millions d’hectares boisés. Ses paysages variés, entre mer et montagne, témoignent d’une nature généreuse qui purifie l’air et abrite une grande biodiversité. Les forêts turques jouent un rôle essentiel dans la régénération des sols et la production d’oxygène autour du bassin méditerranéen.',
             image:'/images/places/turquie.jpg'
-         },
+        },
         { name: 'Allemagne', description: 'L’Allemagne est un modèle de gestion forestière durable : près d’un tiers de son territoire est couvert d’arbres. Ses hêtres, épicéas et sapins filtrent l’air et absorbent des millions de tonnes de CO₂ chaque année. Le pays prouve qu’économie moderne et respect de la nature peuvent grandir côte à côte.',
             image:'/images/places/allemagne.jpg'
-         },
+        },
         { name: 'Madagascar', description: 'Madagascar est un véritable sanctuaire naturel où plus de 80 % des espèces d’arbres sont endémiques. Ses forêts tropicales denses, bien que menacées, produisent une immense quantité d’oxygène et abritent une biodiversité unique. Chaque arbre planté ici participe à préserver un écosystème vital pour notre planète.',
             image:'/images/places/madagascar.jpg'
-         },
+        },
         { name: 'France', description: 'La France compte plus de 17 millions d’hectares de forêts, abritant plus de 138 espèces d’arbres. Des chênes centenaires de la Loire aux pins maritimes des Landes, chaque forêt raconte une histoire. Ces espaces verts jouent un rôle clé dans la lutte contre le réchauffement climatique et la protection de la faune européenne.',
             image:'/images/places/france.jpg'
-         },
+        },
         { name: 'Canada', description: 'Le Canada possède près de 9 % des forêts mondiales. Ses forêts boréales s’étendent sur des millions d’hectares et constituent un immense réservoir d’oxygène. Ces forêts abritent une faune riche et jouent un rôle crucial dans la régulation du climat mondial. Un poumon vert essentiel à la vie sur Terre.',
             image:'/images/places/canada.jpg'
-         },
+        },
         { name: 'Népal', description: 'Entre montagnes et vallées, le Népal protège ses forêts himalayennes, source d’eau pure et d’air frais. Les pins, rhododendrons et bambous de ses hauteurs soutiennent la vie locale et favorisent la stabilité des sols. Ce petit pays prouve que la nature est la meilleure alliée des communautés montagnardes.',
             image:'/images/places/nepal.jpg'
-         },
+        },
         { name: 'Japon', description: 'Pays des forêts sacrées et des cerisiers en fleurs, le Japon vit en harmonie avec ses arbres. Près de 68 % du territoire est couvert de forêts, mêlant traditions, spiritualité et écologie. Chaque arbre, du majestueux cèdre du Japon au délicat sakura, symbolise la force tranquille de la nature et son équilibre fragile.',
             image:'/images/places/japon.jpg'
-         },
+        },
         { name: 'Chili', description: 'Des Andes à la Patagonie, le Chili abrite des forêts anciennes où pousse le Fitzroya, un arbre pouvant vivre plus de 3 000 ans. Ses paysages verts et sauvages témoignent d’une nature encore préservée. Le Chili contribue à la production mondiale d’oxygène et représente un espoir pour la conservation des forêts sud-américaines.',
             image:'/images/places/chili.jpg'
-         },
+        },
         { name: 'Brésil', description: 'Le Brésil est le cœur vert de la planète. L’Amazonie, la plus vaste forêt du monde, produit près de 20 % de l’oxygène mondial et abrite plus de 16 000 espèces d’arbres. Véritable poumon de la Terre, elle joue un rôle irremplaçable dans la capture du carbone et la régulation du climat planétaire.',
             image:'/images/places/bresil.jpg'
-         },
+        },
         { name: 'Papouasie-Nouvelle-Guinée', description: 'Avec près de 75 % de son territoire recouvert de forêts tropicales, la Papouasie-Nouvelle-Guinée est l’un des joyaux les plus riches en biodiversité du Pacifique. Ses arbres géants filtrent l’air, régulent les pluies et abritent des milliers d’espèces animales et végétales encore méconnues. Un véritable trésor naturel.',
             image:'/images/places/nouvelle-guinée.jpg'
-         },
+        },
         { name: 'Australie', description: 'Des eucalyptus géants du sud aux forêts tropicales du Queensland, l’Australie est un continent d’arbres résilients. Malgré les feux et les sécheresses, ses forêts se régénèrent et participent activement à la capture du carbone. Un exemple de la force de la nature face aux défis du climat.',
             image:'/images/places/australie.jpg'
-         },
+        },
         { name: 'Egypte', description: 'Au cœur du désert, l’Égypte se réinvente grâce à des projets de reboisement ambitieux. Ses oasis et zones vertes naissantes transforment le sable en source d’oxygène et d’espoir. Ces initiatives symbolisent la renaissance d’une terre qui cherche à retrouver son équilibre écologique.',
             image:'/images/places/egypte.jpg'
-         },
+        },
     ]);
 
     //Insérer des arbres
