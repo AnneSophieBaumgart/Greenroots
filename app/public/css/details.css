@@ -106,6 +106,10 @@
     border-radius: 8px;
 }
 
+.scientific-name {
+    font-style: italic;
+}
+
 @media screen and (max-width: 768px) {
     .details{
         flex-direction: column;
