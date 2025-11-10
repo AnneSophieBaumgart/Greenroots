@@ -65,3 +65,15 @@ describe("Validation du schéma Joi userUpdateSchema", () => {
         });
     }
 });
+
+// describe(...) => groupe les tests pour le schéma userUpdateSchema.
+
+// it(...) => crée un test individuel (chaque cas est testé séparément).
+
+// userUpdateSchema.validate() => vérifie les données selon le schéma Joi de mise à jour.
+
+// expect(...) => vérifie que le résultat correspond à l’attente (succès ou erreur).
+
+// toBeUndefined() => aucune erreur attendue pour les cas valides.
+
+// toBeDefined() => une erreur est attendue pour les cas invalides.

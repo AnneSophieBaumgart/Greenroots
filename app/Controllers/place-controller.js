@@ -15,3 +15,4 @@ class PlaceController extends CoreController {
 }
 
 export default new PlaceController();
+export { placeSchema }; //exporte le schéma pour les tests

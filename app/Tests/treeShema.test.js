@@ -125,3 +125,16 @@ describe("Validation du schéma Joi treeSchema", () => {
         });
     }
     });
+
+// describe(...) => groupe logique de tests pour valider le schéma Joi des arbres (treeSchema).
+
+// it(...) => définit un test pour un cas précis (valide ou invalide).
+
+// treeSchema.validate() => exécute la validation Joi sur les données de chaque arbre.
+
+// expect(...) => compare le résultat de la validation avec l’attente.
+
+// toBeUndefined() => aucune erreur détectée, donc les données sont valides.
+
+// toBeDefined() => erreur détectée, donc les données sont invalides.
+

@@ -94,3 +94,15 @@ describe("Validation du schéma Joi userSchema", () => {
         });
     }
 });
+
+// describe(...) => crée un groupe logique de tests (ici ceux du schéma userSchema).
+
+// it(...) => définit un test individuel avec une description.
+
+// userSchema.validate() => exécute la validation Joi sur les données du test.
+
+// expect(...) => fait une assertion : vérifie si le résultat correspond à ce qu’on attend.
+
+// toBeUndefined() => attend aucune erreur (les données sont valides).
+
+// toBeDefined() => attend une erreur (les données sont invalides).
