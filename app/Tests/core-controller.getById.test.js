@@ -73,13 +73,21 @@ describe("Tests de la méthode getById du CoreController", () => {
         jest.clearAllMocks();
     });
 
-    // Liste de scénarios à tester
-    const scenarios = [
+    // Liste des différents cas que l'on veut tester pour getById()
+    const testCases = [
     {
         description: "Cas 1 : L'élément existe => doit afficher la vue 'detail'",
+
+            // Ce que la fausse base de données (fakeDatabase) doit renvoyer
             simulatedDatabaseResult: { id: 1, name: "Chêne" },
+
+            // Le code HTTP attendu
             expectedStatusCode: StatusCodes.OK,
+
+            // Le nom de la vue EJS attendue
             expectedView: "trees/detail",
+
+            // Les données que la vue devrait recevoir
             expectedViewData: {
                 title: "Tree #1",
                 item: { id: 1, name: "Chêne" },
@@ -95,22 +103,31 @@ describe("Tests de la méthode getById du CoreController", () => {
     ];
 
     // On parcourt chaque scénario pour le tester automatiquement
-    for (const scenario of scenarios) {
-        it(scenario.description, async () => {
+    for (const testCase of testCases) {
+        it(testCase.description, async () => {
 
-        // Simule le comportement de Sequelize selon le cas
-        fakeDatabase.findByPk.mockResolvedValueOnce(scenario.simulatedDatabaseResult);
+        // On simule le comportement de la base de données (Sequelize) selon le scénario de test.
+        // mockResolvedValueOnce() permet de simuler une fonction asynchrone qui renvoie une promesse résolue.
+        // Autrement dit, on fait “comme si” la base de données avait répondu avec testCase.simulatedDatabaseResult.
+        // Cela permet de tester la logique du contrôleur (élément trouvé ou non trouvé)
+        // sans interroger une vraie base de données.
+        fakeDatabase.findByPk.mockResolvedValueOnce(testCase.simulatedDatabaseResult);
 
         // Appelle la méthode du contrôleur
         await controller.getById(fakeRequest, fakeResponse);
 
-        // Vérifie que le code HTTP est correct
-        expect(fakeResponse.status).toHaveBeenCalledWith(scenario.expectedStatusCode);
+        // Vérifie que la méthode res.status() a bien été appelée avec le bon code HTTP
+        // toHaveBeenCalledWith() => Vérifie que la fonction a été appelée avec ces arguments précis.
+        expect(fakeResponse.status).toHaveBeenCalledWith(testCase.expectedStatusCode);
 
-        // Vérifie que la bonne vue EJS est rendue avec les bonnes données
+        // ✅ Vérifie que res.render() a été appelé avec :
+        // - la bonne vue EJS (testCase.expectedView)
+        // - un objet contenant au moins les propriétés attendues (par exemple le titre et l’élément à afficher)
+        // => expect.objectContaining() permet de ne pas exiger que l’objet soit identique à 100%.
+        // Le test réussira même si le contrôleur ajoute d’autres propriétés (ex: date, user, etc.)
         expect(fakeResponse.render).toHaveBeenCalledWith(
-            scenario.expectedView,
-            expect.objectContaining(scenario.expectedViewData)
+            testCase.expectedView,
+            expect.objectContaining(testCase.expectedViewData)
         );
         });
     }
