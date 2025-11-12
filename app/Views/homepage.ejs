@@ -14,11 +14,11 @@
       alt="une main d'enfant qui tient un plant d'arbre dans un peu de terre">
   </section>
 
-  <h2 class="nos_nouveautes_title">Nos Nouveautés</h2>
-  <section class="nouveautes_section">
+  <h2 class="nos_lieux">Nos Nouveautés</h2>
+  <section class="grid_section">
       <% if (newTrees && newTrees.length > 0) { %>
           <% newTrees.forEach(tree =>{ %>
-            <article class="nouveautes">
+            <article class="list_card">
               <a href="/trees/<%= tree.id %>">
                   <% if (tree.image) { %>
                     <img class="tree_img" src="<%= tree.image %>" alt="<%= tree.name %>">

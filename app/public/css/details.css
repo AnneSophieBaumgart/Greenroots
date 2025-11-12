@@ -6,13 +6,6 @@
     height:100vh;
 }
 
-.details_h1{
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 2rem;
-    text-align: center;
-}
-
 .article_details{
     display: flex;
     justify-content: center;

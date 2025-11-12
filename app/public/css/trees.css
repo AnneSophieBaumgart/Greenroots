@@ -15,49 +15,6 @@ main {
     box-sizing: border-box;
 }
 
-/* Titre de la page*/
-.trees_h1{
-    font-size: 4rem;
-    font-weight: 700;
-    text-align: center;
-    padding:2rem;
-}
-
-/* Grid */
-.trees_section{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes par défaut */
-    justify-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
-    width: 100%;
-}
-
-/* Chaque produit */
-.tree_card{
-    display: flex;
-    background-color: #edede9;
-    width: 100%;             
-    max-width: 420px;         
-    flex-direction: column;
-    align-items: center;
-    border: 0.5px solid #3A5A40;
-    border-radius: 30px;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Hover pour les cards*/
-.tree_card:hover{
-    transform: translateY(-5px);
-    background-color: #d3dfbb;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-
 /* L'image produit*/
 .tree_img{
     width: 100%;
@@ -132,13 +89,13 @@ main {
 
 /* Responsive*/
 @media screen and (max-width: 768px) {
-    .trees_section {
+    .grid_section {
         grid-template-columns: 1fr; /* écran mobile : 1 colonne */
     }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1280px) {
-    .trees_section {
+    .grid_section {
         grid-template-columns: repeat(2, 1fr); /* tablettes / petits laptops : 2 colonnes */     
     }
 }

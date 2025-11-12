@@ -1,56 +1,10 @@
 
-.places_list_section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-bottom: 2rem;
-}
-
-.places_section{
-   display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    justify-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
-    width: 100%;
-}
-
-.details_h3{
+.details_h1{
     font-size: 2rem;
     font-weight: 700;
     color: #000000;
-    margin-bottom: 1rem;
+    margin: 2rem;
     text-align: center;
-}
-
-.place_card{
-    display: flex;
-    background-color: #edede9;
-    width: 100%;             
-    max-width: 420px;         
-    flex-direction: column;
-    align-items: center;
-    border: 0.5px solid #3A5A40;
-    border-radius: 30px;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.places_h1{
-    font-size: 4rem;
-    font-weight: 700;
-    text-align: center;
-    padding:2rem;
-}
-
-.place_card:hover{
-    transform: translateY(-5px);
-    background-color: #d3e2b6;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
 }
 
 .place_description{
@@ -64,36 +18,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-
-.create_button_places{
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    padding: 0.75rem 4rem;
-    background-color: #3A5A40;
-    color: #E5E3DC;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    text-decoration: none;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-.create_button_places:hover{
-    background-color: #2d4733;
-    transition: background-color 0.3s ease;
-    color: #E5E3DC;
-}
-
-.create_place_section{
-    display: flex;
-    justify-content: center;
-    margin: 5rem;
-    height: 100vh;
-
 }
 
 .create_place_h1{
@@ -115,7 +39,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .places_section {
+    .grid_section {
         grid-template-columns: 1fr; /* écran mobile : 1 colonne */
     }
     .details_h3{
@@ -127,7 +51,7 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 1280px) {
-    .places_section {
+    .grid_section {
         grid-template-columns: repeat(2, 1fr); /* tablettes / petits laptops : 2 colonnes */     
     }
     .place_description{
