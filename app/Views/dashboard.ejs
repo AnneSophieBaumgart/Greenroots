@@ -1,19 +1,19 @@
 <%- include('partials/header') %>
 
   <h1 class="dashboard">Bienvenue </h1>
-  <section id="profil">
+  <section class="profil">
     <article class="user">
       <h2>Profil</h2>
       <h3>Nom : </h3>
-      <p>
+      <p class="profil_p">
         <%= user.last_name %>
       </p>
       <h3>Prénom : </h3>
-      <p>
+      <p class="profil_p">
         <%= user.first_name %>
       </p>
       <h3>Email :</h3>
-      <p>
+      <p class="profil_p">
         <%= user.email %>
       </p>
     </article>
@@ -21,20 +21,17 @@
     <article class="trees">
       <% if (userRole === 'admin') { %>
         <h2>Gestion des arbres</h2>
-        <div class="admin-actions">
-          <a href="/trees/create" class="action-button">Ajouter un arbre</a>
-          <a href="/trees" class="action-button">Voir tous les arbres</a>
-          <a href="/users" class="action-button">Liste des utilisateurs</a>
-        </div>
-        <div class="tree-actions">
-          <a href="/trees" class="action-button">Gérer les arbres</a>
+        <div class="admin_actions">
+          <a href="/trees/create" class="action_button">Ajouter un arbre</a>
+          <a href="/users" class="action_button">Liste des utilisateurs</a>
+          <a href="/trees" class="action_button">Gérer les arbres</a>
         </div>
       <% } else { %>
         <h2>Mes arbres commandés</h2>
         <% if (user.UserHasTrees && user.UserHasTrees.length > 0) { %>
           <div class="tree-list">
             <% user.UserHasTrees.forEach(userTree => { %>
-              <div class="tree-item">
+              <div class="details_info">
                 <h3><%= userTree.Tree.name %></h3>
                 <% userTree.Tree.Places.forEach(place => { %>
                   <p>Planté à : <%= place.name %></p>

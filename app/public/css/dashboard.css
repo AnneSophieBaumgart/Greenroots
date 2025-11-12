@@ -1,4 +1,4 @@
-#profil {
+.profil {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
@@ -16,27 +16,24 @@ h1.dashboard  {
   font-weight: bold;
   margin: 3rem auto 0 auto;
   text-align: center;
-  border: 0.5px solid #3A5A40;
-  border-radius: 3rem;
-  background-color: #d3dfbb;
   padding: 0.8rem;
   color: var(--color-darkgreen);
   width: fit-content;
 }
 
-#profil p {
+.profil_p {
   font-size: 1.5rem;
-  margin: 1rem;
+  margin: 1rem 1rem 1rem 3rem;
 }
 
-#profil h2 {
+.profil h2 {
   color: rgb(7, 59, 11);
   font-weight: bolder;
   font-size: xx-large;
   margin-bottom: 0.8rem;
 }
 
-#profil h3, a {
+.profil h3, a {
 
     border: 1rem;
     color: var(--color-darkgreen);
@@ -44,12 +41,7 @@ h1.dashboard  {
     font-size: x-large;
 }
 
-#profil a:hover {
-    transform: translateY(-5px);
-    background-color: #d3dfbb;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
+
 
 .user {
   grid-column: 1;
@@ -63,6 +55,10 @@ h1.dashboard  {
 .user h2{
   display:flex;
   justify-content:center;
+}
+
+.user h3{
+  margin: 2rem;
 }
 
 .trees {
@@ -86,6 +82,16 @@ h1.dashboard  {
   justify-self: center;
   text-align: center;
   padding: 2rem;
+  color: #E5E3DC;
+}
+
+.profil_logout a:hover {
+    transform: translateY(-5px);
+    background-color: #E5E3DC;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
 }
 
 .user_info{
@@ -113,6 +119,37 @@ h1.dashboard  {
     font-size: 1.5rem;
 }
 
+.details-button{
+  margin-top: 1.5rem;
+}
+
+.admin_actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.action_button{
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    color: #3A5A40;
+    text-decoration: none;
+    border: 1px solid #3A5A40;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.action_button:hover{
+    background-color:#d3dfbb;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
 
 @media screen and (max-width: 768px) {
     #profil {
