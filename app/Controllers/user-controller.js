@@ -75,56 +75,6 @@ class UserController extends CoreController {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', { message: 'Erreur lors de la mise à jour.' });
     }
   }
-
-  // méthode pour afficher les arbres de l'utilisateur dans son dashboard
-  // getDashboard = async (req, res) => {
-  //  try {
-
-  // on récupère l'id utilisateur depuis le token
-  //  const userId = req.userId;
-
-  // si pas d'userId, on le redirige vers la connexion
-  //  if (!userId) {
-  //    return res.redirect('/login');
-  //  }
-
-  // charger l'utilisateur avec les associations nécessaires
-  // const user = await this.model.findByPk(userId, {
-  //  include: [{
-  //   model: UserHasTree,
-  //   include: [{
-  //     model: Tree,
-  //     include: [{
-  //       model: Place,
-  //       through: { attributes: ['quantity'] }
-  //     }]
-  //   }]
-  //  }]
-  //  });
-
-  // vérifier que l'utilisateur existe
-  //  if (!user) {
-  //    return res.status(StatusCodes.NOT_FOUND).render('error', {
-  //      message: 'Utilisateur introuvable'
-  //    });
-  //  }
-
-  // transformer en plain object pour EJS ( plus simple à lire)
-  //  const userPlain = user.get ? user.get({ plain: true }) : user;
-
-  // rendre la vue dashboaard
-  //  return res.status(StatusCodes.OK).render('dashboard', {
-  //    user: userPlain,
-  //    userRole: req.userRole
-  //  });
-
-  //  } catch (error) {
-  //    console.error('Erreur getDashboard:', error);
-  //    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).render('error', {
-  //      message: 'Erreur serveur'
-  //    });
-  //  }
-  // }
 }
 
 export default new UserController();
