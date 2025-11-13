@@ -102,7 +102,7 @@ describe("Tests de la méthode getById du CoreController", () => {
     },
     ];
 
-    // On parcourt chaque scénario pour le tester automatiquement
+    // On parcourt chaque testCases pour le tester automatiquement
     for (const testCase of testCases) {
         it(testCase.description, async () => {
 
@@ -120,7 +120,7 @@ describe("Tests de la méthode getById du CoreController", () => {
         // toHaveBeenCalledWith() => Vérifie que la fonction a été appelée avec ces arguments précis.
         expect(fakeResponse.status).toHaveBeenCalledWith(testCase.expectedStatusCode);
 
-        // ✅ Vérifie que res.render() a été appelé avec :
+        // Vérifie que res.render() a été appelé avec :
         // - la bonne vue EJS (testCase.expectedView)
         // - un objet contenant au moins les propriétés attendues (par exemple le titre et l’élément à afficher)
         // => expect.objectContaining() permet de ne pas exiger que l’objet soit identique à 100%.
