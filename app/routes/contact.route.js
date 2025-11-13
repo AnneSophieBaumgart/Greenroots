@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import contactController from '../Controllers/contact.controller.js';
+import contactController from '../controllers/contact-controller.js';
 
 const contactRouter = Router();
 

@@ -1,7 +1,7 @@
 import express from 'express';
-import PlaceController from '../Controllers/place-controller.js';
-import { authenticateToken } from '../Middlewares/auth-middleware.js';
-import { isAdmin } from '../Middlewares/isAdmin-middleware.js';
+import PlaceController from '../controllers/place-controller.js';
+import { authenticateToken } from '../middlewares/auth-middleware.js';
+import { isAdmin } from '../middlewares/isAdmin-middleware.js';
 
 const router = express.Router();
 

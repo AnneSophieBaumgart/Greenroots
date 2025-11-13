@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { StatusCodes } from 'http-status-codes';
-import { User, UserHasTree, Tree, Place } from '../Models/index.js';
+import { User, UserHasTree, Tree, Place } from '../models/index.js';
 import CoreController from './core-controller.js';
 
 // Schéma Joi pour valider les données d'un utilisateur

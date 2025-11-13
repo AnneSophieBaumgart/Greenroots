@@ -1,10 +1,10 @@
-import Tree from "../Models/tree.model.js";
-import Place from "../Models/place.model.js";
-import Order from "../Models/order.model.js";
-import OrderHasTree from "../Models/order_has_tree.model.js";
+import Tree from "../models/tree.model.js";
+import Place from "../models/place.model.js";
+import Order from "../models/order.model.js";
+import OrderHasTree from "../models/order_has_tree.model.js";
 import { StatusCodes } from "http-status-codes";
-import sequelize from "../Models/sequelize.client.js";
-import UserHasTree from "../Models/user_has_tree.model.js";
+import sequelize from "../models/sequelize.client.js";
+import UserHasTree from "../models/user_has_tree.model.js";
 
 
 // ---- afficher le panier ---- \\
