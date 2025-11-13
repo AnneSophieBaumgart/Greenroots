@@ -135,7 +135,8 @@
 
 }
 
-.cart_validate {
+.cart_validate_btn {
+  width: 100%;
   color: var(--color-cream);
   background-color: var(--color-darkgreen);
   margin-left: 5%;
@@ -143,12 +144,12 @@
   cursor: pointer;
 }
 
-.cart_validate:hover {
+.cart_validate_btn:hover {
   background-color: var(--color-ultradarkgreen);
 }
 
 .cart_total,
-.cart_validate {
+.cart_validate_btn {
   font-size: 2rem;
   font-weight: bold;
   border-radius: 10px;
@@ -252,7 +253,7 @@
 }
 
 .cart_total,
-.cart_validate {
+.cart_validate_btn {
   font-size: 1rem;
   margin: 0 auto;
 }

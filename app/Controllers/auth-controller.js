@@ -138,6 +138,8 @@ export async function getCurrentUserInfo(req, res) {
       ]
     });
 
+    console.log(JSON.stringify(user ? user.toJSON() : user, null, 2));
+
     if (!user) { // Si aucun utilisateur trouvé => erreur 404
       return res.status(StatusCodes.NOT_FOUND).render('login', { error: 'Utilisateur non trouvé' });
     }
