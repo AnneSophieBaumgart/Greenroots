@@ -47,6 +47,7 @@
 #contact img {
     border-radius: 1rem;
     width: 100%;
+    height: 400px;
     max-width: 500px;
     border: 1px solid #ddd;
 }

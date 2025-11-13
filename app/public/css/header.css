@@ -30,6 +30,7 @@
     width: 5rem;
     height: auto;
     border-radius: 45% ;
+    display: block;
 }
 
 .icon{
@@ -40,28 +41,40 @@
     right: 5%;
 }
 
+#menu{
+    display: none;
+}
+
 .nav_links li {
     display: inline-block;
     gap: 5rem;
     margin: 0 1rem;
     color: #E5E3DC;
 }
- .nav_links a{
-    color:#E5E3DC;
+
+.nav_links a {
+    color: #E5E3DC;
     text-decoration: none;
     font-weight: bold;
- }
+}
 
-
-.nav_links li a:hover{
-    color:#78978c;
-    font-size: 1.1rem;
+.nav_links li a:hover {
+    color: #78978c;
+    font-size: 1.7rem;
     transition: all 0.5s ease;
+}
+
+.nav_icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .connexion {
     background-color: #E5E3DC;
+    color: #3A5A40;
     border: none;
+    text-decoration: none;
     padding: 10px 20px;
     border-radius: 15px;
     cursor: pointer;
@@ -69,29 +82,71 @@
     transition: background-color 0.3s ease;
 }
 
+#user_icon {
+    color: #E5E3DC;
+    font-size: 2rem;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#user_icon:hover {
+    background-color: #78978c;
+    transform: scale(1.1);
+}
+
 .connexion:hover {
     background-color: #78978c;
 }
 
-@media screen and (max-width: 768px) {
-    .icon{
-        display: inline-flex;
-        margin-right:0;
+@media screen and (max-width: 910px) {
+    .navigation {
+        flex-wrap: wrap;
     }
-    .nav_links{
+    
+    .icon {
+        display: block;
         position: absolute;
-        right: 0px;
-        height: 100vh;
-        top: 0;
-        background-color: #3A5A40;
+        right: 20px;
+    }
+    
+    .nav_links, .nav_icons {
+        display: none;
+        width: 100%;
+        text-align: center;
+    }
+    
+    #menu:checked ~ .nav_links,
+    #menu:checked ~ .nav_icons {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 50%;
-        transform: translateX(100%);
-        padding-top: 5rem;
+        margin-top: 1rem;
+        gap: 1rem;
     }
-    .connexion{
-        display: none;
+    
+    .nav_links li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+    
+    .nav_icons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+    
+    #user_icon {
+        font-size: 1.8rem;
+        padding: 6px;
+    }
+    
+    .connexion {
+        display: inline-block;
+        margin: 0.5rem 0;
     }
 }

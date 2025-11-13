@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 :root {
+    --color-ultradarkgreen:  rgb(7, 59, 11);
     --color-darkgreen: #3A5A40;
     --color-lightgreen: #78978c;
     --color-cream: #E5E3DC;
@@ -13,4 +14,5 @@ html {
 
 body {
   background-color: var(--color-cream);
+  min-height: 100vh;
 }

@@ -92,8 +92,10 @@ main {
     margin-bottom: 1rem;
 }
 
-/* Bouton pour acheter*/
-.buy_button{
+/* Bouton pour acheter + bouton admin */
+.buy_button,
+.edit_button,
+.delete_button {
     background-color:  #677056;
     color: #E5E3DC;
     border: none;
@@ -102,15 +104,30 @@ main {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Bouton hover */
-.buy_button:hover{
+.buy_button:hover,
+.edit_button:hover,
+.delete_button:hover {
     background-color: #3A5A40;
     transition: background-color 0.5s ease;
     font-size: 1rem;
     transition: font-size 0.5s ease;
     
+}
+
+.create_button{
+    color: #3A5A40;
+    border: none;
+    margin-left: 10%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.create_button:hover{
+    color: #2e4432;
 }
 
 /* Responsive*/
