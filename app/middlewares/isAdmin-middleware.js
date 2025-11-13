@@ -5,6 +5,11 @@
 
 import { StatusCodes } from 'http-status-codes';
 
+// Fonction logique pure pour le test unitaire.
+export function isUserAdmin(role) {
+    return role === 'admin';
+}
+
 export function isAdmin(req, res, next) {
     // Vérifie si le rôle de l'utilisateur est "admin"
     if (req.userRole === 'admin') {

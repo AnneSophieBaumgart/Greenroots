@@ -1,9 +1,10 @@
-import Tree from "../Models/tree.model.js";
-import Place from "../Models/place.model.js";
-import Order from "../Models/order.model.js";
-import OrderHasTree from "../Models/order_has_tree.model.js";
+import Tree from "../models/tree.model.js";
+import Place from "../models/place.model.js";
+import Order from "../models/order.model.js";
+import OrderHasTree from "../models/order_has_tree.model.js";
 import { StatusCodes } from "http-status-codes";
-import sequelize from "../Models/sequelize.client.js";
+import sequelize from "../models/sequelize.client.js";
+import UserHasTree from "../models/user_has_tree.model.js";
 
 
 // ---- afficher le panier ---- \\
@@ -312,6 +313,22 @@ export async function validateOrder(req, res) {
         tree_id: item.tree_id,
         quantity: item.quantity
       }, { transaction: newTransaction });
+
+      // crée les lignes dans user_has_tree pour lier l'utilisateur aux arbres commandés
+      // findOrCreate évite les doublons dans la table
+      for (let treeInstance = 0; treeInstance < item.quantity; treeInstance++) {
+        await UserHasTree.findOrCreate({
+          where: {
+            user_id: userId,
+            tree_id: item.tree_id
+          },
+          defaults: {
+            user_id: userId,
+            tree_id: item.tree_id
+          },
+          transaction: newTransaction
+        });
+      }
 
       // décrement le stock avec la transaction
       const tree = await Tree.findByPk(item.tree_id);

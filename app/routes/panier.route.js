@@ -1,6 +1,6 @@
 import express from 'express';
-import { getPanier, addToPanier, removeFromPanier, updatePanier, validateOrder, getConfirmation } from '../Controllers/panier.controller.js';
-import { authenticateToken } from '../Middlewares/auth-middleware.js';
+import { getPanier, addToPanier, removeFromPanier, updatePanier, validateOrder, getConfirmation } from '../controllers/panier-controller.js';
+import { authenticateToken } from '../middlewares/auth-middleware.js';
 
 const router = express.Router();
 

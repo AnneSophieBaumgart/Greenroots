@@ -2,15 +2,15 @@ import express from 'express';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
-import homepageRouter from './app/Routes/homepage.route.js';
-import treeRouter from './app/Routes/tree.route.js';
-import contactRouter from './app/Routes/contact.route.js';
-import authRouter from './app/Routes/auth.route.js';
-import userRouter from './app/Routes/user.route.js';
-import placeRouter from './app/Routes/place.route.js';
-import './app/Models/index.js';
-import { decodeUserFromToken } from './app/Middlewares/decodeUserFromToken-middleware.js';
-import panierRouter from './app/Routes/panier.route.js';
+import homepageRouter from './app/routes/homepage.route.js';
+import treeRouter from './app/routes/tree.route.js';
+import contactRouter from './app/routes/contact.route.js';
+import authRouter from './app/routes/auth.route.js';
+import userRouter from './app/routes/user.route.js';
+import placeRouter from './app/routes/place.route.js';
+import './app/models/index.js';
+import { decodeUserFromToken } from './app/middlewares/decodeUserFromToken-middleware.js';
+import panierRouter from './app/routes/panier.route.js';
 
 
 const app = express();
@@ -37,7 +37,7 @@ app.use(session({
 }));
 
 app.set('view engine', 'ejs');
-app.set('views', './app/Views');
+app.set('views', './app/views');
 app.use(express.static('./app/public'));
 
 // middleware global : lit le token, sans bloquer personne

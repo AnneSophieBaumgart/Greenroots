@@ -1,4 +1,4 @@
-import Tree from '../Models/tree.model.js';
+import Tree from '../models/tree.model.js';
 
 const homepageController = {
   // méthode asynchrone pour la page d'accueil

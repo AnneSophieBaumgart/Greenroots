@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { Tree } from '../Models/index.js';
+import { Tree } from '../models/index.js';
 import CoreController from './core-controller.js';
 
 // Schéma Joi pour valider les données d'un arbre
@@ -28,3 +28,4 @@ class TreeController extends CoreController {
 }
 
 export default new TreeController();
+export { treeSchema }; //exporte le schéma pour les tests

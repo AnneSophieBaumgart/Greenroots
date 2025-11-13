@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken'; // Pour créer et vérifier les tokens JWT
 import * as argon2 from 'argon2'; // Pour hasher et vérifier les mots de passe
 import { StatusCodes } from 'http-status-codes';
-import User from '../Models/user.model.js';
-import UserHasTree from '../Models/user_has_tree.model.js';
-import Tree from '../Models/tree.model.js';
-import Place from '../Models/place.model.js';
+import User from '../models/user.model.js';
+import UserHasTree from '../models/user_has_tree.model.js';
+import Tree from '../models/tree.model.js';
+import Place from '../models/place.model.js';
 
 //REGISTER => Créer un nouvel utilisateur (avec hash du mot de passe)
 export async function register(req, res) {
@@ -137,6 +137,8 @@ export async function getCurrentUserInfo(req, res) {
         }
       ]
     });
+
+    console.log(JSON.stringify(user ? user.toJSON() : user, null, 2));
 
     if (!user) { // Si aucun utilisateur trouvé => erreur 404
       return res.status(StatusCodes.NOT_FOUND).render('login', { error: 'Utilisateur non trouvé' });
