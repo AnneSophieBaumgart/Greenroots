@@ -230,3 +230,4 @@ class CoreController {
 
 // Exporte la classe pour être héritée par d'autres contrôleurs
 export default CoreController;
+export { CoreController }; //exporte le schéma pour les tests

@@ -28,3 +28,4 @@ class TreeController extends CoreController {
 }
 
 export default new TreeController();
+export { treeSchema }; //exporte le schéma pour les tests

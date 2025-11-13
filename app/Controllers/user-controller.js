@@ -78,3 +78,4 @@ class UserController extends CoreController {
 }
 
 export default new UserController();
+export { userSchema, userUpdateSchema }; // Pour les tests unitaires
