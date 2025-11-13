@@ -1,7 +1,7 @@
 import express from 'express';
-import UserController from '../Controllers/user-controller.js';
-import { authenticateToken } from '../Middlewares/auth-middleware.js';
-import { isAdmin } from '../Middlewares/isAdmin-middleware.js';
+import UserController from '../controllers/user-controller.js';
+import { authenticateToken } from '../middlewares/auth-middleware.js';
+import { isAdmin } from '../middlewares/isAdmin-middleware.js';
 
 const router = express.Router();
 
@@ -15,8 +15,8 @@ router.get('/:id', UserController.getById);
 // car sinon Express "oublie" à quel objet appartient la fonction.
 // En appelant nous-mêmes UserController.updateUser(req, res),
 // on s’assure que le contrôleur garde bien son contexte (`this` fonctionne correctement).
-router.get('/:id/edit',authenticateToken, isAdmin, (req, res) => UserController.updateUser(req, res));
-router.post('/:id/edit',authenticateToken, isAdmin, (req, res) => UserController.updateUser(req, res));
+router.get('/:id/edit', authenticateToken, isAdmin, (req, res) => UserController.updateUser(req, res));
+router.post('/:id/edit', authenticateToken, isAdmin, (req, res) => UserController.updateUser(req, res));
 
 
 router.post('/:id/delete', authenticateToken, isAdmin, UserController.delete);
