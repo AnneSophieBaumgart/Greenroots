@@ -11,7 +11,7 @@
       <a class="button" href="/trees">Découvrir nos arbres</a>
     </div>
     <img class="image_accueil" src="/images/accueil.jpg"
-      alt="une main d'enfant qui tient un plant d'arbre dans un peu de terre">
+      alt="une main d'enfant qui tient un plant d'arbre dans un peu de terre" loading="lazy">
   </section>
 
   <h2 class="nos_lieux">Nos Nouveautés</h2>
@@ -21,7 +21,7 @@
             <article class="list_card">
               <a href="/trees/<%= tree.id %>">
                   <% if (tree.image) { %>
-                    <img class="tree_img" src="<%= tree.image %>" alt="<%= tree.name %>">
+                    <img class="tree_img" src="<%= tree.image %>" alt="<%= tree.name %>" loading="lazy">
                     <% } %>
                 </a>
                 <h2 class="name"><a href="/trees/<%= tree.id %>">
@@ -40,22 +40,22 @@
     <h3 class="nos_lieux">Les paysages qui font battre nos racines</h3>
     <div class="slider">
         <div class="slide slide1">
-          <img src="/images/places/bresil.jpg" alt="Une image de Brésil">
+          <img src="/images/places/bresil.jpg" alt="Une image de Brésil" loading="lazy">
         </div>
         <div class="slide slide2">
-          <img src="/images/places/japon.jpg" alt="Une image du Japon">
+          <img src="/images/places/japon.jpg" alt="Une image du Japon" loading="lazy">
         </div>
         <div class="slide slide3">
-          <img src="/images/places/chili.jpg" alt="Une image du Chili">
+          <img src="/images/places/chili.jpg" alt="Une image du Chili" loading="lazy">
         </div>
         <div class="slide slide4">
-          <img src="/images/places/turquie.jpg" alt="Une image dde la Turquie">
+          <img src="/images/places/turquie.jpg" alt="Une image de la Turquie" loading="lazy">
         </div>
         <div class="slide slide5">
-          <img src="/images/places/egypte.jpg" alt="Une image de L'Egypte">
+          <img src="/images/places/egypte.jpg" alt="Une image de L'Egypte" loading="lazy">
         </div>
         <div class="slide slide6">
-          <img src="/images/places/allemagne.jpg" alt="Une image de l'Allemagne">
+          <img src="/images/places/allemagne.jpg" alt="Une image de l'Allemagne" loading="lazy">
         </div>
     </div>
     <a class="places_button" href="/places">Découvrir nos lieux</a>
