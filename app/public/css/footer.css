@@ -7,6 +7,19 @@
     width: 100%;
 }
 
+p {
+  margin-top: 1rem;
+}
+
+.footer a {
+  color: var(--color-cream);
+}
+
+.footer a:hover {
+  color: var(--color-lightgreen);
+  transition: 0.5s ease;
+}
+
 @media screen and (max-width: 768px) {
     .footer{
         margin-top: 18rem;
