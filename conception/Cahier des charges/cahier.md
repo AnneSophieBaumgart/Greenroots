@@ -73,6 +73,7 @@
 | POST    | /panier/validate          | Validation du panier et passage à la commande    | Utilisateur connecté|
 | GET     | /panier/confirmation/:orderId| Confirmation de la commande                   | Utilisateur connecté|
 | GET     | /contact                  | Contact                                          | Public              |
+| GET     | /rgpd                     | Mentions légales et Politique de confidentialité| Public              |
 | GET     | /dashboard                | Page d'admin                                     | Admin               |
 | GET     | /trees/create             | Formulaire de création d'un arbre                | Admin               |
 | POST    | /trees/create             | Ajout d'un arbre                                 | Admin               |

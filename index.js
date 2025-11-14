@@ -11,6 +11,7 @@ import placeRouter from './app/routes/place.route.js';
 import './app/models/index.js';
 import { decodeUserFromToken } from './app/middlewares/decodeUserFromToken-middleware.js';
 import panierRouter from './app/routes/panier.route.js';
+import rgpdRouter from './app/routes/rgpd.route.js';
 
 
 const app = express();
@@ -47,6 +48,7 @@ app.use(decodeUserFromToken);
 app.use('/', homepageRouter);
 app.use('/', authRouter);
 app.use('/contact', contactRouter);
+app.use('/rgpd', rgpdRouter);
 
 
 app.use('/trees', treeRouter);
