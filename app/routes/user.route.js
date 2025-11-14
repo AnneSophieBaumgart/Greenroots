@@ -7,8 +7,6 @@ const router = express.Router();
 
 // CRUD basique
 router.get('/', UserController.getAll);
-router.get('/create', authenticateToken, isAdmin, UserController.create);
-router.post('/create', authenticateToken, isAdmin, UserController.create);
 router.get('/:id', UserController.getById);
 
 // On utilise une fonction fléchée (req, res) => ... au lieu de passer directement la méthode du contrôleur,
