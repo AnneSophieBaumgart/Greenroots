@@ -1,7 +1,7 @@
 <%- include('../partials/header')%>
 
 <section class="section">
-    <h1 class="places_h1">
+    <h1 class="list_h1">
       Liste de nos lieux
     </h1>
     <% if (userRole==='admin' ) { %>
@@ -9,10 +9,10 @@
       <a class="create_button" href="/places/create">Ajouter un lieu</a>
     </div>
     <% } %>
-    <div class="places_section">
+    <div class="grid_section">
       <% if (items && items.length> 0) { %>
         <% items.forEach(place=> { %>
-          <article class="place_card">
+          <article class="list_card">
             <a href="/places/<%= place.id %>">
                   <% if (place.image) { %>
                     <img class="tree_img" src="<%= place.image %>" alt="<%= place.name %>">
