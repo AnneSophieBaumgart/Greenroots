@@ -7,7 +7,7 @@
 
 .login_page{
     height: 100vh;
-    background-color: #E5E3DC;
+    background-color: var(--color-cream);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #3A5A40;
+    color: var(--color-darkgreen);
 }
 
 .input{
@@ -44,8 +44,8 @@
     padding: 0.75rem;
     justify-content: center;
     align-items: center;
-    background-color: #3A5A40;
-    color: #E5E3DC;
+    background-color: var(--color-darkgreen);
+    color: var(--color-cream);
     border: none;
     border-radius: 25px;
     font-size: 1.2rem;
@@ -66,7 +66,7 @@
 }
 
 .inscrivez_vous{
-    color: #3A5A40;
+    color: var(--color-darkgreen);
     font-size: 1rem;
 }
 
@@ -83,7 +83,7 @@
 
 .register_page{
     height: 100vh;
-    background-color: #E5E3DC;
+    background-color: var(--color-cream);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,7 +103,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #3A5A40;
+    color: var(--color-darkgreen);
 }
 
 .register_button{
@@ -111,8 +111,8 @@
     padding: 0.75rem;
     justify-content: center;
     align-items: center;
-    background-color: #3A5A40;
-    color: #E5E3DC;
+    background-color: var(--color-darkgreen);
+    color: var(--color-cream);
     border: none;
     border-radius: 25px;
     font-size: 1.2rem;

@@ -92,8 +92,8 @@ img{
     height: 100px;
     font-size: 3rem;
     font-weight: bold;
-    background-color: #E5E3DC;
-    color: #3A5A40; 
+    background-color: var(--color-cream);
+    color: var(--color-darkgreen); 
     border-radius: 6px;
     position: absolute;
     left:100%;
