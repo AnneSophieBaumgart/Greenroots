@@ -53,3 +53,11 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
+/* h1 des deux views de détails, trees et places */
+.details_h1{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 2rem;
+    text-align: center;
+}
