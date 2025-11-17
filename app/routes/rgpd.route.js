@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import rgpdController from '../controllers/rgpd-controllerjs';
+import rgpdController from '../controllers/rgpd-controller.js';
 
 const rgpdRouter = Router();
 
