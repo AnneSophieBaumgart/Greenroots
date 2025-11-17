@@ -74,6 +74,28 @@ Tree.belongsToMany(Order, {
   onDelete: 'CASCADE',
 });
 
+//Order - OrderHAsTree
+Order.hasMany(OrderHasTree, {
+  foreignKey: 'order_id',
+  onDelete: 'CASCADE',
+});
+
+OrderHasTree.belongsTo(Order, {
+  foreignKey: 'order_id',
+  onDelete: 'CASCADE',
+});
+
+//Tree - OrderHasTree
+Tree.hasMany(OrderHasTree, {
+  foreignKey: 'tree_id',
+  onDelete: 'CASCADE',
+});
+
+OrderHasTree.belongsTo(Tree, {
+  foreignKey: 'tree_id',
+  onDelete: 'CASCADE',
+});
+
 //User - Tree (via UserHasTree)
 
 //Pour suivre quels arbres appartiennent à quels utilisateurs

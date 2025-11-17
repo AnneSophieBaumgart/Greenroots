@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken'; // Pour créer et vérifier les tokens JWT
 import * as argon2 from 'argon2'; // Pour hasher et vérifier les mots de passe
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/user.model.js';
-import UserHasTree from '../models/user_has_tree.model.js';
+import Order from '../models/order.model.js'
+import OrderHasTree from '../models/order_has_tree.model.js';
 import Tree from '../models/tree.model.js';
 import Place from '../models/place.model.js';
 
@@ -122,14 +123,19 @@ export async function getCurrentUserInfo(req, res) {
       attributes: { exclude: ['password'] }, // Ne pas renvoyer le mot de passe
       include: [
         {
-          model: UserHasTree,
+          model: Order,
           include: [
             {
-              model: Tree,
+              model: OrderHasTree,
               include: [
                 {
-                  model: Place,
-                  through: { attributes: ['quantity'] }
+                  model: Tree,
+                  include: [
+                    {
+                      model: Place,
+                      through: { attributes: [] }
+                    }
+                  ]
                 }
               ]
             }
