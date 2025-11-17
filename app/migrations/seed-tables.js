@@ -144,6 +144,13 @@ try {
     { place_id: places[2].id, tree_id: trees[2].id, quantity: 12 }, // Madagascar - Baobab
     { place_id: places[3].id, tree_id: trees[3].id, quantity: 10 }, // France - Dogwoods
     { place_id: places[4].id, tree_id: trees[4].id, quantity: 15 }, // Canada - Érable
+    { place_id: places[5].id, tree_id: trees[5].id, quantity: 7 },   // Népal - Cyprès de l’Himalaya
+    { place_id: places[6].id, tree_id: trees[6].id, quantity: 9 },   // Japon - Cerisier du Japon
+    { place_id: places[7].id, tree_id: trees[7].id, quantity: 6 },   // Chili - Araucaria du Chili
+    { place_id: places[8].id, tree_id: trees[8].id, quantity: 11 },  // Brésil - Noyer du Brésil
+    { place_id: places[9].id, tree_id: trees[9].id, quantity: 4 },   // Papouasie-Nouvelle-Guinée - Arbre à pain
+    { place_id: places[10].id, tree_id: trees[10].id, quantity: 13 },// Australie - Eucalyptus
+    { place_id: places[11].id, tree_id: trees[11].id, quantity: 10 } // Égypte - Acacia
   ]);
 
   // Créer une commande
