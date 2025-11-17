@@ -6,11 +6,11 @@
 
 USER (id, last_name, first_name, e-mail, password, role)<br>
 USER_HAS_TREE (#user_id, #tree_id)<br>
-ORDER (id, date, total_price, status, #user_id)<br>
+ORDER (id, total_price, status, #user_id, created_at)<br>
 ORDER_HAS_TREE (id, quantity, #tree_id, #order_id)<br>
 TREE (id, name, description, image, price, stock, origin)<br>
 PLACE_HAS_PLANT (id, quantity, #tree_id, #place_id) <br>
-PLACE (id, name)<br>
+PLACE (id, name, description, image)<br>
 
 # MPD (Modèle Physique de Données)
 
@@ -33,7 +33,9 @@ CREATE TABLE "user" (                             -- Création de la table des u
 -- =============================
 CREATE TABLE place (                              -- Création de la table des lieux de plantation
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
-    name TEXT NOT NULL                            -- Nom du lieu (ex : Amazonie, Kenya, etc.)
+    name TEXT NOT NULL  ,                         -- Nom du lieu (ex : Amazonie, Kenya, etc.)
+    description TEXT,                             -- Description du lieu
+    image TEXT                                    -- Lien vers une image du lieu
 );
 
 -- =============================
@@ -70,6 +72,7 @@ CREATE TABLE "order" (                            -- Création de la table des c
     id SERIAL PRIMARY KEY,                        -- Identifiant unique auto-incrémenté
     total_price DECIMAL(10,2) NOT NULL,           -- Montant total de la commande
     status TEXT NOT NULL,                         -- Statut de la commande (ex : payée, en attente)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,-- Date et heure de création de la commande (gérée par Sequelize)
     user_id INT REFERENCES "user"(id)             -- Lien vers l’utilisateur ayant passé la commande
             ON DELETE CASCADE                     -- Si l’utilisateur est supprimé → suppression des commandes
 );

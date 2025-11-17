@@ -41,14 +41,14 @@
 - **SEO** : appliquer les bonnes pratiques visant à maximiser le référencement du projet.
 - **Navigateurs compatibles :** Chrome, Firefox, Brave.
 - **Bonus** :
-    - conteneurisation (Docker) pour l'environnement de développement voire pour le déploiement,
+    - utilisation de Render pour le déploiement,
     - éco-conception (optimisation des images, minification des fichiers, etc.).
 
 ### Routes
 
 #### L'arborescence des routes
 
-![arborescence](./arborescence.excalidraw.png)
+![Arborescence des routes](./arborescence.excalidraw.png)
 
 #### Détail des routes
 
@@ -57,21 +57,39 @@
 | GET     | /                         | Page d'accueil                                   | Public              |
 | GET     | /register                 | Page d'inscription                               | Public              |
 | POST    | /register                 | Soumission du formulaire d'inscription           | Public              |
-| GET     | /user                     | Page de profil                                   | Utilisateur connecté|
+| GET     | /dashboard                | Page de profil et historique des arbres commandés| Utilisateur connecté|
 | GET     | /login                    | Page de connexion                                | Public              |
 | POST    | /login                    | Soumission du formulaire de connexion            | Public              |
 | POST    | /logout                   | Déconnexion                                      | Utilisateur connecté|
 | GET     | /trees                    | Liste des arbres disponibles à l'achat           | Public              |
 | GET     | /trees/:id                | Détails d'un arbre spécifique                    | Public              |
 | POST    | /trees/:id/buy            | Achat d'un arbre                                 | Utilisateur connecté|
-| GET     | /orders                   | Liste des commandes passées                      | Utilisateur connecté|
-| GET     | /cart                     | Panier                                           | Public              |
+| GET     | /place                    | Liste des lieux de plantation                    | Public              |
+| GET     | /place/:id                | Détails d'un lieu de plantation                  | Public              |
+| GET     | /panier                   | Panier                                           | Utilisateur connecté|
+| POST    | /panier/add               | Ajout d'un arbre au panier                       | Utilisateur connecté|
+| POST    | /panier/remove            | Retrait d'un arbre du panier                     | Utilisateur connecté|
+| GET     | /panier/update            | Mise à jour du panier                            | Utilisateur connecté|
+| POST    | /panier/validate          | Validation du panier et passage à la commande    | Utilisateur connecté|
+| GET     | /panier/confirmation/:orderId| Confirmation de la commande                   | Utilisateur connecté|
 | GET     | /contact                  | Contact                                          | Public              |
-| GET     | /admin                    | Page d'admin                                     | Admin               |
-| POST    | /admin                    | Ajout d'un arbre                                 | Admin               |
-| PATCH   | /admin                    | Modification d'un arbre                          | Admin               |
-| DELETE  | /admin                    | Suppression d'un arbre                           | Admin               |
-| GET     | /admin/user:id            | Voir d'un utilisateur                            | Admin               |
+| GET     | /rgpd                     | Mentions légales et Politique de confidentialité| Public              |
+| GET     | /dashboard                | Page d'admin                                     | Admin               |
+| GET     | /trees/create             | Formulaire de création d'un arbre                | Admin               |
+| POST    | /trees/create             | Ajout d'un arbre                                 | Admin               |
+| GET     | /trees/:id/edit           | Formulaire de modification d'un arbre            | Admin               |
+| POST    | /trees/:id/edit           | Modification d'un arbre                          | Admin               |
+| POST  | /trees/:id/delete           | Suppression d'un arbre                           | Admin               |
+| GET     | /place/create             | Formulaire de création d'un lieu de plantation   | Admin               |
+| POST    | /place/create             | Ajout d'un lieu de plantation                    | Admin               |
+| GET     | /place/:id/edit           | Formulaire de modification d'un lieu de plantation| Admin               |
+| POST    | /place/:id/edit           | Modification d'un lieu de plantation             | Admin               |
+| POST  | /place/:id/delete           | Suppression d'un lieu de plantation              | Admin               |
+| GET     | /user                     | Voir d'un utilisateur                            | Admin               |
+| GET     | /user/:id                 | Voir un utilisateur spécifique                   | Admin               |
+| GET     | /user/:id/edit            | Formulaire de modification d'un utilisateur      | Admin               |
+| POST    | /user/:id/edit            | Modification d'un utilisateur                    | Admin               |
+| POST  | /user/:id/delete            | Suppression d'un utilisateur                     | Admin               |
 
 
 #### User Stories
@@ -89,6 +107,13 @@
 | Admin | En tant qu’admin, | je veux pouvoir ajouter de nouveaux arbres à la plateforme. |
 | Admin | En tant qu’admin, | je veux pouvoir modifier les informations d’un arbre existant. |
 | Admin | En tant qu’admin, | je veux pouvoir supprimer un arbre de la plateforme. |
+| Admin | En tant qu’admin, | je veux pouvoir ajouter des lieux de plantation. |
+| Admin | En tant qu’admin, | je veux pouvoir modifier les lieux de plantation. |
+| Admin | En tant qu’admin, | je veux pouvoir supprimer des lieux de plantation. |
+| Admin | En tant qu’admin, | je veux pouvoir voir les utilisateurs. |
+| Admin | En tant qu’admin, | je veux pouvoir modifier les informations d’un utilisateur. |
+| Admin | En tant qu’admin, | je veux pouvoir supprimer un utilisateur. |
+
 
 
 #### Rôles de chacun :
@@ -97,6 +122,7 @@
 - Lead developer front : Zakaria
 - Lead developer back : Anne-Sophie
 - Git master : Armand
+
 
 #### Organisation du travail
 
