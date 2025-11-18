@@ -13,41 +13,6 @@ import { decodeUserFromToken } from './app/middlewares/decodeUserFromToken-middl
 import panierRouter from './app/routes/panier.route.js';
 import rgpdRouter from './app/routes/rgpd.route.js';
 
-const { Sequelize } = require('sequelize');
-
-// Initialisation de Sequelize avec  l'URL de Supabase
-const sequelize = new Sequelize(process.env.PG_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  dialeqOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
-
-// Teste de la connexion à la BDD
-sequelize.authenticate()
-  .then(() => {
-    console.log('Connexion à la base de données étalie avec succès.');
-  })
-  .catch(err => {
-    console.error('Impossible de se connecter à la base de données:', err);
-  });
-
-// associe les models à Sequelize
-require('./models/index')(sequelize);
-
-// Synchronnisation des modèles avec la BDD
-sequelize.sync({ alter: true })
-  .then(() => {
-    console.log('Les modèles ont été synchronisés avec la base de données.');
-  })
-  .catch(err => {
-    console.error('Erreur lors de la synchronisation des modèles:', err);
-  });
-
 const app = express();
 
 const PORT = process.env.PORT || 3000;

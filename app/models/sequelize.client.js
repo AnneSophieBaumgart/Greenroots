@@ -3,19 +3,30 @@ import "dotenv/config"; // import du fichier .env
 
 // On crée une instance de Sequelize
 const sequelize = new Sequelize(process.env.PG_URL, {
-    define: {
-        freezeTableName: true, // Pas de pluriel pour les noms de table
-        underscored: true,     // snake_case au lieu de camelCase pour les noms de colonnes/champs
-}
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  define: {
+    underscored: true,      // snake_case
+    timestamps: true,       // ajoute automatiquement creat_at et update_at
+    freezeTableNAme: true,  // garde le nom exact du modèle
+  },
 });
 
 //Test connection
-try {
-    await sequelize.authenticate();
-    console.log("La connexion à la BD ok !");
-} catch (error) {
-    console.error("Impossible de se connecter à la BD :", error);
-}
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connexion à Supabase établie avvec succès.');
+  })
+  .catch(err => {
+    console.error('Erreur de connexion à Supabase:', err);
+    process.exit(1);
+  });
 
 
 // On exporte cette instance
