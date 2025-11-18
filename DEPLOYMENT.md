@@ -45,17 +45,16 @@ Avant de commencer, assurez-vous d'avoir :
 
 1. Une fois le projet créé, allez dans **Settings** (icône ⚙️ dans le menu de gauche)
 
-2. Cliquez sur **"Database"** dans le sous-menu ( menu de gauche)
+2. Cliquez sur **"Database"** dans le sous-menu
 
-3. EN haut vers le milieu, cliquez sur **"Connect"**
+3. Descendez jusqu'à la section **"Connection string"**
 
 4. Sélectionnez "type" : **"URI"** "method" : **"Session pooler"**
 
 5. Vous verrez une URL au format :
-
-  ```
-   postgresql://postgres.xxxxxxxxx:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
-  ```
+   ```
+   postgresql://postgres.xxxxxxxxx:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+   ```
 
   Attention : L'URL affiche 5432 par défaut, mais pour le pooler Supabase, le port correct est **6543**.
 
@@ -93,7 +92,7 @@ Si vous voulez vérifier que tout fonctionne, vous pouvez aller dans l'onglet **
 
 3. **Connecter votre repository** :
    - Si c'est votre premier déploiement, cliquez sur **"Connect a repository"**
-   - Recherchez et sélectionnez : `votrenomgithub/Greenroots` (ou le nom de votre repository)
+   - Recherchez et sélectionnez : `O-clock-Dundee/dwwm-greenroots`
    - Si vous ne le voyez pas, cliquez sur **"Configure account"** pour autoriser l'accès
 
 4. Cliquez sur **"Connect"** à côté de votre repository
@@ -309,10 +308,11 @@ Vous aurez besoin de pousser vos modifications uniquement si vous avez modifié 
 2. Cliquez dessus ou copiez-collez dans votre navigateur
 
 3. **Si c'est la première requête après un moment d'inactivité** :
+4. 
    - ⏳ L'app peut mettre 30-50 secondes à démarrer (réveil du service gratuit)
    - Soyez patient !
 
-4. Vous devriez voir la page d'accueil de GreenRoots ! 🌳
+5. Vous devriez voir la page d'accueil de GreenRoots ! 🌳
 
 ### Étape 4.2 : Tester les fonctionnalités principales
 
@@ -371,7 +371,6 @@ Par défaut, Render redéploie automatiquement votre application **à chaque pus
    git commit -m "Ajout d'une nouvelle fonctionnalité"
    git push origin admin
    ```
-
 3. Render détecte le push et redéploie automatiquement
 4. Attendez 2-3 minutes que le déploiement se termine
 
@@ -492,17 +491,6 @@ Si vous avez accès au Shell de Render :
 
 1. Allez dans le Shell de Render
 2. Exécutez à nouveau :
-
-   ```bash
-   node app/migrations/create-tables.js
-   node app/migrations/seed-tables.js
-   ```
-
-Si vous n'avez pas accès au Shell (plan gratuit) :
-
-1. Sur votre machine locale, assurez-vous que `PG_URL` pointe vers Supabase
-2. Exécutez les commandes :
-
    ```bash
    node app/migrations/create-tables.js
    node app/migrations/seed-tables.js
@@ -529,11 +517,9 @@ Si vous n'avez pas accès au Shell (plan gratuit) :
 **Solution** :
 
 1. Régénérez de nouvelles clés :
-
    ```bash
    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
-
 2. Mettez à jour les variables d'environnement sur Render
 3. Déconnectez-vous et reconnectez-vous sur l'application
 

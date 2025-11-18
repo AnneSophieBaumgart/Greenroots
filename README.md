@@ -16,7 +16,7 @@ Ce projet a été développé dans le cadre d'un projet d'apothéose en équipe 
 - 📍 **Lieux de plantation** : Découverte des différents sites de plantation dans le monde
 - 🛒 **Panier** : Ajout d'arbres au panier et gestion des commandes
 - 📊 **Dashboard** : Suivi de l'historique de ses commandes
-- 📧 **Contact** : Plus d'informations sur GreenRoots
+- 📧 **Contact** : Formulaire de contact
 - 🔒 **RGPD** : Mentions légales et politique de confidentialité
 
 ### Pour les administrateurs
