@@ -24,7 +24,7 @@ try {
       first_name: 'Bob',
       last_name: 'Marley',
       email: 'bob@mail.com',
-      password: await argon2.hash('passwordadmin'),
+      password: await argon2.hash(process.env.ADMIN_PASSWORD),
       role: 'admin',
     },
   ]);
