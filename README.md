@@ -69,6 +69,7 @@ dwwm-greenroots/
 ## 🗄️ Modèle de données
 
 Le projet utilise 7 tables principales :
+
 - **user** : Utilisateurs (clients et administrateurs)
 - **tree** : Arbres disponibles à l'achat
 - **place** : Lieux de plantation
