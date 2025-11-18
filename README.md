@@ -16,7 +16,7 @@ Ce projet a été développé dans le cadre d'un projet d'apothéose en équipe 
 - 📍 **Lieux de plantation** : Découverte des différents sites de plantation dans le monde
 - 🛒 **Panier** : Ajout d'arbres au panier et gestion des commandes
 - 📊 **Dashboard** : Suivi de l'historique de ses commandes
-- 📧 **Contact** : Formulaire de contact
+- 📧 **Contact** : Plus d'informations sur GreenRoots
 - 🔒 **RGPD** : Mentions légales et politique de confidentialité
 
 ### Pour les administrateurs
@@ -90,8 +90,8 @@ Le projet utilise 7 tables principales :
 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/O-clock-Dundee/dwwm-greenroots.git
-cd dwwm-greenroots
+git clone https://github.com/AnneSophieBaumgart/Greenroots.git
+cd Greenroots
 ```
 
 2. Installer les dépendances
@@ -105,10 +105,12 @@ npm install
 Créer un fichier `.env` à la racine du projet :
 
 ```env
-PORT=3000
-DATABASE_URL=postgresql://user:password@localhost:5432/greenroots
+PORT=votre_port
+PG_URL=votre_url_postgresql
 SESSION_SECRET=votre_secret_session
 JWT_SECRET=votre_secret_jwt
+PERENUAL_TOKEN=votre_token_perenual
+ADMIN_PASSWORD=votre_mot_de_passe_admin
 ```
 
 4. Initialiser la base de données
