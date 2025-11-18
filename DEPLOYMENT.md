@@ -11,7 +11,7 @@ Ce guide détaille le déploiement de l'application **GreenRoots** avec :
 
 Avant de commencer, assurez-vous d'avoir :
 
-- ✅ Un compte GitHub avec le repository `dwwm-greenroots` poussé
+- ✅ Un compte GitHub avec le repository `greenroots` poussé
 - ✅ Votre branche de production prête (ex: `admin` ou `main`)
 - ✅ Tous les fichiers nécessaires committés et pushés
 - ✅ Le fichier `.env` **NON commité** (doit être dans `.gitignore`)
@@ -45,16 +45,17 @@ Avant de commencer, assurez-vous d'avoir :
 
 1. Une fois le projet créé, allez dans **Settings** (icône ⚙️ dans le menu de gauche)
 
-2. Cliquez sur **"Database"** dans le sous-menu
+2. Cliquez sur **"Database"** dans le sous-menu (menu de gauche)
 
-3. Descendez jusqu'à la section **"Connection string"**
+3. En haut vers le milieu, cliquez sur **"Connect"**
 
-4. Sélectionnez l'onglet **"URI"** (ou **"Connection pooling"** - recommandé pour éviter les limites)
+4. Sélectionnez "type" : **"URI"** "method" : **"Session pooler"**
 
 5. Vous verrez une URL au format :
    ```
-   postgresql://postgres.xxxxxxxxx:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+   postgresql://postgres.xxxxxxxxx:[YOUR-PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
    ```
+ Attention : L'URL affiche 5432 par défaut, mais pour le pooler Supabase, le port correct est **6543**.
 
 6. **Copiez cette URL** et remplacez `[YOUR-PASSWORD]` par le mot de passe que vous avez sauvegardé à l'étape 1.2
 
@@ -79,6 +80,7 @@ Si vous voulez vérifier que tout fonctionne, vous pouvez aller dans l'onglet **
 2. Cliquez sur **"Get Started for Free"** ou **"Sign Up"**
 3. Connectez-vous avec GitHub (recommandé)
 4. Autorisez Render à accéder à vos repositories GitHub
+5. Attention, vous ne pourrez choisir que les repositories auxquels Render a accès.
 
 ### Étape 2.2 : Créer un nouveau Web Service
 
@@ -88,7 +90,7 @@ Si vous voulez vérifier que tout fonctionne, vous pouvez aller dans l'onglet **
 
 3. **Connecter votre repository** :
    - Si c'est votre premier déploiement, cliquez sur **"Connect a repository"**
-   - Recherchez et sélectionnez : `O-clock-Dundee/dwwm-greenroots`
+   - Recherchez et sélectionnez : `votrenomgithub/greenroots` (ou le nom de votre repository)
    - Si vous ne le voyez pas, cliquez sur **"Configure account"** pour autoriser l'accès
 
 4. Cliquez sur **"Connect"** à côté de votre repository
@@ -184,6 +186,8 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 - **Key** : `NODE_ENV`
 - **Value** : `production`
 
+Et toutes les variables qui sont nécessaires selon votre configuration.
+
 ### Récapitulatif des variables d'environnement
 
 ```env
@@ -218,13 +222,13 @@ NODE_ENV=production
 
 Votre application est déployée, mais la base de données Supabase est vide. Il faut créer les tables et insérer les données.
 
-### Étape 3.1 : Accéder au Shell de Render
+### Étape 3.1.A : Accéder au Shell de Render (partie payante, veression gratuite plus bas)
 
 1. Dans votre Web Service sur Render, allez dans l'onglet **"Shell"** (dans le menu de gauche)
 
 2. Un terminal s'ouvre dans l'environnement de votre application
 
-### Étape 3.2 : Créer les tables
+### Étape 3.2.A : Créer les tables
 
 Dans le Shell, exécutez la commande suivante :
 
@@ -233,14 +237,16 @@ node app/migrations/create-tables.js
 ```
 
 **Ce que fait cette commande :**
+
 - Crée toutes les tables de votre base de données (user, tree, place, order, etc.)
 - Établit les relations entre les tables
 
 **Résultat attendu :**
+
 - Vous devriez voir des messages confirmant la création des tables
 - Si vous voyez des erreurs, vérifiez que votre `PG_URL` est correct
 
-### Étape 3.3 : Peupler la base de données
+### Étape 3.3.A : Peupler la base de données
 
 Ensuite, exécutez :
 
@@ -249,11 +255,30 @@ node app/migrations/seed-tables.js
 ```
 
 **Ce que fait cette commande :**
+
 - Insère les données initiales (arbres, lieux, utilisateurs de test, etc.)
 
 **Résultat attendu :**
+
 - Des messages confirmant l'insertion des données
 - Votre base est maintenant prête !
+
+### Étape 3.1.B : Initialiser la base de données localement (version gratuite)
+
+Si vous utilisez le plan gratuit de Render (sans accès au Shell), vous devez initialiser la base de données localement et pousser les modifications.
+
+1. Sur votre machine locale, assurez-vous que votre fichier `.env` contient la bonne `PG_URL` pointant vers Supabase
+2. Ouvrez un terminal dans le dossier de votre projet
+3. Exécutez les commandes suivantes :
+
+```bash
+node app/migrations/create-tables.js
+node app/migrations/seed-tables.js
+```
+
+Ces commandes vont créer les tables et insérer les données directement dans votre base Supabase et ne sont à exécuter qu'une seule fois, la base est maintenant initialisée et remplie.
+
+Vous aurez besoin de pousser vos modifications uniquement si vous avez modifié des tables, colonnes ou données.
 
 ### Étape 3.4 : Vérifier dans Supabase (optionnel)
 
@@ -276,32 +301,38 @@ node app/migrations/seed-tables.js
 2. Cliquez dessus ou copiez-collez dans votre navigateur
 
 3. **Si c'est la première requête après un moment d'inactivité** :
+4. 
    - ⏳ L'app peut mettre 30-50 secondes à démarrer (réveil du service gratuit)
    - Soyez patient !
 
-4. Vous devriez voir la page d'accueil de GreenRoots ! 🌳
+5. Vous devriez voir la page d'accueil de GreenRoots ! 🌳
 
 ### Étape 4.2 : Tester les fonctionnalités principales
 
 Testez les fonctionnalités suivantes pour vous assurer que tout fonctionne :
 
 ✅ **Page d'accueil**
+
 - La page se charge correctement
 - Les images s'affichent
 
 ✅ **Catalogue d'arbres**
+
 - Les arbres s'affichent (issus de la BDD)
 - Les détails d'un arbre sont accessibles
 
 ✅ **Inscription / Connexion**
+
 - Créez un nouveau compte
 - Connectez-vous
 
 ✅ **Panier**
+
 - Ajoutez un arbre au panier
 - Validez une commande
 
 ✅ **Dashboard utilisateur**
+
 - Affichez l'historique de vos commandes
 
 ### Étape 4.3 : Surveiller les logs
@@ -324,15 +355,18 @@ Si quelque chose ne fonctionne pas :
 Par défaut, Render redéploie automatiquement votre application **à chaque push** sur la branche configurée (`admin` ou `main`).
 
 **Processus :**
+
 1. Vous faites des modifications localement
 2. Vous commit et push sur GitHub :
+
    ```bash
    git add .
    git commit -m "Ajout d'une nouvelle fonctionnalité"
    git push origin admin
    ```
-3. Render détecte le push et redéploie automatiquement
-4. Attendez 2-3 minutes que le déploiement se termine
+
+4. Render détecte le push et redéploie automatiquement
+5. Attendez 2-3 minutes que le déploiement se termine
 
 ### Déploiement manuel
 
@@ -366,6 +400,7 @@ Si vous voulez contrôler manuellement les déploiements :
 ### Consulter les métriques
 
 Dans l'onglet **"Metrics"**, vous pouvez voir :
+
 - Utilisation du CPU
 - Utilisation de la RAM
 - Trafic réseau
@@ -374,6 +409,7 @@ Dans l'onglet **"Metrics"**, vous pouvez voir :
 ### Accéder aux logs en temps réel
 
 Dans l'onglet **"Logs"**, vous pouvez :
+
 - Voir les logs en temps réel
 - Filtrer par niveau (info, warning, error)
 - Télécharger les logs
@@ -381,6 +417,7 @@ Dans l'onglet **"Logs"**, vous pouvez :
 ### Gérer la base de données Supabase
 
 Dans Supabase, vous pouvez :
+
 - **Table Editor** : Voir et modifier vos données
 - **SQL Editor** : Exécuter des requêtes SQL
 - **Database** : Voir les backups et les métriques
@@ -400,6 +437,7 @@ Dans Supabase, vous pouvez :
 - 🌍 1 région (Europe ou autre)
 
 **Astuce pour éviter l'endormissement :**
+
 - Utilisez un service de "ping" gratuit (ex: UptimeRobot, Cron-job.org)
 - Configurez un ping toutes les 10 minutes sur votre URL
 
@@ -420,6 +458,7 @@ Dans Supabase, vous pouvez :
 **Cause possible** : L'application a crashé
 
 **Solution** :
+
 1. Allez dans l'onglet **"Logs"** de Render
 2. Identifiez l'erreur (en rouge)
 3. Corrigez le problème dans votre code
@@ -430,6 +469,7 @@ Dans Supabase, vous pouvez :
 **Cause possible** : Mauvaise URL de connexion PostgreSQL
 
 **Solution** :
+
 1. Vérifiez que `PG_URL` est correctement configurée
 2. Vérifiez que le mot de passe est bien remplacé dans l'URL
 3. Testez la connexion depuis Supabase (Table Editor)
@@ -440,8 +480,21 @@ Dans Supabase, vous pouvez :
 **Cause possible** : Les tables ne sont pas créées
 
 **Solution** :
+
+Si vous avez accès au Shell de Render :
+
 1. Allez dans le Shell de Render
 2. Exécutez à nouveau :
+
+   ```bash
+   node app/migrations/create-tables.js
+   node app/migrations/seed-tables.js
+   ```
+Si vous n'avez pas accès au Shell (plan gratuit) :
+
+1. Sur votre machine locale, assurez-vous que `PG_URL` pointe vers Supabase
+2. Exécutez les commandes :
+
    ```bash
    node app/migrations/create-tables.js
    node app/migrations/seed-tables.js
@@ -452,11 +505,13 @@ Dans Supabase, vous pouvez :
 **Cause possible** : Le service était endormi (plan gratuit)
 
 **Solution** :
+
 - C'est normal pour le plan gratuit
 - Attendez 30-50 secondes au premier chargement
 - Ensuite, l'application sera rapide pendant 15 minutes
 
 **Alternative** :
+
 - Passez au plan payant de Render (7$/mois) pour un service toujours actif
 
 ### Problème : "Invalid token" ou erreurs d'authentification
@@ -464,10 +519,13 @@ Dans Supabase, vous pouvez :
 **Cause possible** : `JWT_SECRET` ou `SESSION_SECRET` mal configurés
 
 **Solution** :
+
 1. Régénérez de nouvelles clés :
+ 
    ```bash
    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-   ```
+    ```
+
 2. Mettez à jour les variables d'environnement sur Render
 3. Déconnectez-vous et reconnectez-vous sur l'application
 
@@ -478,10 +536,12 @@ Dans Supabase, vous pouvez :
 ### Vérifier l'état du service
 
 **Render :**
+
 - Dashboard → Statut (vert = OK, rouge = problème)
 - Logs en temps réel
 
 **Supabase :**
+
 - Dashboard → Métriques de la base de données
 - Database → Queries per second, connections actives
 
@@ -492,6 +552,7 @@ Dans Supabase, vous pouvez :
 1. Aller dans **Database** → **Backups**
 2. Cliquer sur **"Download backup"**
 3. Ou utiliser `pg_dump` depuis votre machine :
+
    ```bash
    pg_dump "votre_url_supabase" > backup.sql
    ```
